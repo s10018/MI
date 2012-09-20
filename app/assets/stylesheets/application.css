@@ -9,5 +9,8 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require fancybox
+ *= require application.css
+ *= require movies.css
  *= require_tree .
  */

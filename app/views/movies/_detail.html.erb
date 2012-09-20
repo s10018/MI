@@ -1,0 +1,25 @@
+
+<div id="detail">
+  <%= form_tag :controller => "movies", :action => "show" do %>
+  <%= select_tag('select_order', options_for_select($select_order_list, "#{@target}_#{@order}"),
+                 :onchange => "this.form.submit()") %>
+  <%= select_tag('select_num', options_for_select(@select_num_list, @num),
+                 :onchange => "this.form.submit()") %>
+  <% end %>
+
+  <div id="movie-list">
+    <div id="<%= @target %>-<%= @group_list[@num][0] %>">
+      <p><%= @group_list[@num][0] %> :</p>
+      <p>
+        <% @group_list[@num][1].each_index do |i| %>
+          <%= link_to image_tag(@group_list[@num][1][i], 
+                                { :border => '1', :alt => '', :witdh => $width * $scale, :height => $height * $scale }), 
+              @group_list[@num][1][i], { :class => "fancybox", :ref => "gallery", :alt => '', :caption => get_title(@group_list[@num][1][i]) } %>
+          <% if (i+1)%$row== 0 %><br /><% end %>
+        <% end %>
+      </p>
+    </div>
+  </div>
+</div>
+
+

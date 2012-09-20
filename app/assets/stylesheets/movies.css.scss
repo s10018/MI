@@ -1,0 +1,83 @@
+// Place all the styles related to the movie controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+$background: #666666;
+
+html {
+  height: 100%;
+}
+
+body {
+  background-color: $background;
+  color: #333;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
+  height: 100%;
+}
+
+p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
+  line-height: 18px;
+}
+
+pre {
+  background-color: #eee;
+  padding: 10px;
+  font-size: 11px;
+}
+
+#wrapper {
+  background-color: white;
+  margin: 0px;
+  height: 100%;
+}
+#header {
+  background-color: white;
+  text-align: right;
+}
+#slider-wrapper {
+    padding: 10px;
+}
+#slider {
+    margin: 0 auto;
+    width: 80%;
+}
+#slider .ui-slider-range {
+    background: #ffffff;
+}
+#slider .ui-slider-handle {
+    border-color: #ef2929;
+}
+
+$page-height: 640px;
+
+#pages {
+
+}
+
+#pages .ui-tabs-panel {
+    height: $page-height;
+    overflow: auto;
+}
+
+#movie-list {
+
+}
+#outline {
+
+}
+
+#map-wrapper {
+    position: relative;
+}
+#map-wrapper img#thumb {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
