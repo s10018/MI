@@ -11,6 +11,8 @@
 // GO AFTER THE REQUIRES BELOW.
 //
 //= require jquery
+//= require jquery.hashchange.min
+//= require jquery.easytabs
 //= require jquery_ujs
 //= require jquery-ui
 //= require fancybox

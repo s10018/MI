@@ -46,7 +46,7 @@ MI::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
 
-  match '/movies' => 'movies#change', :via => :post
+  match '/movies/select' => 'movies#list_change', :via => 'post'
   match '/movies' => 'movies#show'
   match '/index' => redirect('/')
 

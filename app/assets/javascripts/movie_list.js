@@ -1,17 +1,22 @@
+
 $(document).ready(function() {
-
-  $urls=['http://farm3.static.flickr.com/2526/4196070281_0a93789862_s.jpg',
-         'http://farm3.static.flickr.com/2689/4196824214_fdcf872e3d_s.jpg',
-         'http://farm3.static.flickr.com/2429/4196824188_28af5aaed7_s.jpg'];
-
-  for(var i=0; i<$urls.length; i++){
-    var src=$urls[i];
-    $('<img />')
-        .attr('src', src)
-        .load(function(){
-          $("#demo").append($(this));
-        });
-  }
+  // パラメータの取得: param().num
+  var params = function() {
+    var vars = [], hash;
+    hashes = window.location.search.substring(1).split('&'); 
+    for(i = 0; i < hashes.length; i++) { 
+      hash = hashes[i].split('='); 
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1];
+    }
+    return vars;
+  };
+  var tab_id = function() {
+    tab_hash = {
+      'outline': 0, 'detail': 1
+    };
+    return tab_hash[params().mode];
+  };
 
   $("#slider").slider({
     orientation: 'horizontal',
@@ -27,9 +32,8 @@ $(document).ready(function() {
     var value = $( '#slider' ).slider( 'value' );
   }
 
+
   $('#pages').tabs({
-    selected: 2,
-    fx: { opacity: 'toggle', duration: 200 }
   });
 
   $("a.fancybox")

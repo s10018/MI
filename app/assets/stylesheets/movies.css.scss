@@ -34,7 +34,7 @@ pre {
 
 #wrapper {
   background-color: white;
-  margin: 0px;
+  margin: 0px 20px;
   height: 100%;
 }
 #header {
@@ -58,19 +58,34 @@ pre {
 $page-height: 640px;
 
 #pages {
-
+    margin: 0 auto;
 }
 
-#pages .ui-tabs-panel {
-    height: $page-height;
-    overflow: auto;
-}
+.etabs { margin: 0; padding: 0; text-align:left; }
+.tab { 
+    display: inline-block; 
+    zoom:1; *display:inline; 
+    background: #eee;
+    border: solid 1px #999; 
+    border-bottom: none; }
+
+.tab a { font-size: 14px; line-height: 2em; display: block; padding: 0 10px; outline: none; color: #333; }
+.tab a:hover { text-decoration: underline; }
+.tab.active { background: #fff; padding-top: 6px; position: relative; top: 1px; border-color: #666; }
+.tab a.active { font-weight: bold; }
+.tab-container .panel-container {
+    overflow: scroll; 
+    background: #fff; border: solid #666 1px; padding: 10px; }
+
+.panel-container { margin-bottom: 10px; }
 
 #movie-list {
-
+    overflow: scroll; 
 }
-#outline {
 
+#outline, #detail{
+    height: $page-height;
+    overflow: scroll; 
 }
 
 #map-wrapper {

@@ -7,22 +7,48 @@ class MoviesController < ApplicationController
   $width = 640
   $height = 480
   $row = 6
+  $column = 8
   $select_order_list = [['カメラ番号降順','camera_a'],
                         ['カメラ番号昇順','camera_d'],
                         ['日付昇順','date_a'],
                         ['日付降順','date_d']]
   
+  $save = {'mode'=>'detail','target'=>'data','num'=>43,'order'=>'d'}
+
   def index()
-    redirect_to :action => "show", :mode => 'detail', :target => 'camera', :num => 0, :order => 'a'
+    redirect_to :action => "show", :mode => 'detail', :target => 'date', :num => 43, :order => 'd'
   end
 
-  def show()
+  def show
+
     @mode = params[:mode]
     @target = params[:target]
     @order = params[:order]
     @num = params[:num].to_i
+
+    if(@num == $save['num'])
+      @num = 0
+    end
+    $save['mode'] = @mode
+    $save['target'] = @target
+    $save['order'] = @order
+    $save['num'] = @num
+    
     @group_list = list_group(get_path, @target, @order)
     @select_num_list = create_num_list(@group_list)
+  end
+
+  def list_change
+    t = params[:select_order].scan(/(\w+)_(\w)/)
+    target = t[0][0]
+    order = t[0][1]
+    num = 0
+    num = params[:select_num]
+    redirect_to :action => "show", :mode => 'detail', :target => target, :num => num, :order => order   
+  end
+  
+  def tab_change
+    
   end
   
   def create_num_list(list)
@@ -31,13 +57,6 @@ class MoviesController < ApplicationController
       numlist << [list[i][0], i]
     end
     return numlist
-  end
-  
-  def change
-    t = params[:select_order].scan(/(\w+)_(\w)/)
-    n = params[:select_num].to_i
-    mode = 'detail'
-    redirect_to :action => "show", :target => t[0][0], :order => t[0][1], :num => n, :mode => mode
   end
 
   def get_path
