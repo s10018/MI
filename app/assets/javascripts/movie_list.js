@@ -32,8 +32,17 @@ $(document).ready(function() {
     var value = $( '#slider' ).slider( 'value' );
   }
 
+  $("#datepicker").datepicker({
+    dateFormat: 'yy-mm-dd',
+    changeMonth: true,
+    changeYear: true,
+    yearRange: '2000:2020',
+    showMonthAfterYear: false
+  });
 
   $('#pages').tabs({
+    selected: tab_id(),
+    fx: { opacity: 'toggle', duration: 'normal'}
   });
 
   $("a.fancybox")

@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 $background: #666666;
+$tab_base_color: #CCCCCC;
 
 html {
   height: 100%;
@@ -57,10 +58,6 @@ pre {
 
 $page-height: 640px;
 
-#pages {
-    margin: 0 auto;
-}
-
 .etabs { margin: 0; padding: 0; text-align:left; }
 .tab { 
     display: inline-block; 
@@ -79,18 +76,45 @@ $page-height: 640px;
 
 .panel-container { margin-bottom: 10px; }
 
+#pages {
+    margin: 0 auto;
+}
+
+#select {
+    left: 60%;
+    list-style-type: none;
+    position: fixed;
+    margin: 0px auto;
+    padding: 10px;
+    background: white;
+    height: 30px;
+}
+#select ul {
+
+}
+#select li {
+    display: inline;
+}
+#select form {
+    display: inline;
+}
 #movie-list {
     overflow: scroll; 
+    padding: 50px 20px 20px 20px;
 }
 
-#outline, #detail{
+#outline, #detail {
     height: $page-height;
-    overflow: scroll; 
+    padding: 0px;
 }
-
+#pager {
+    width: 500px;
+    margin: 0px auto;
+}
 #map-wrapper {
     position: relative;
 }
+
 #map-wrapper img#thumb {
     position: absolute;
     top: 0px;
