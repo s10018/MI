@@ -1,50 +1,67 @@
 # -*- coding: utf-8 -*-
 
 class MoviesController < ApplicationController
-  helper_method :get_title
+  helper_method :get_title, :get_info
 
   $scale = 0.25
   $width = 640
   $height = 480
-  $row = 4
+  $row = 3
   $column = 6
-  $select_order_list = [['カメラ番号降順','camera_a'],
-                        ['カメラ番号昇順','camera_d'],
-                        ['日付昇順','date_a'],
-                        ['日付降順','date_d']]
+  $select_order_list = [['降順','a'],
+                        ['昇順','d']]
+  $max_camera = 14
   
-  $save = {'mode'=>'detail','target'=>'data','num'=>43,'order'=>'d'}
-
-  def index()
-    redirect_to :action => "show", :mode => 'detail', :target => 'date', :num => 43, :order => 'd'
+  def index
+    redirect_to :action => "show", :target => 'date', :date => '2012-09-20', :order => 'd'
   end
-
+  
   def show
-
-    @mode = params[:mode]
-    @target = params[:target]
-    @order = params[:order]
-    @num = params[:num].to_i
-
-    if(@num == $save['num'])
-      @num = 0
-    end
-    $save['mode'] = @mode
-    $save['target'] = @target
-    $save['order'] = @order
-    $save['num'] = @num
-    
-    @all_group_list = list_group(get_path, @target, @order)
-    @select_num_list = create_num_list(@all_group_list)
-
-    group_list = @all_group_list[@num]
-    @key = group_list[0]
-    list = group_list[1]
-
-    @list = list[0..23]
+    session[:save] = {'target' => params[:target], 'date' => params[:date], 'order' => params[:order] }
+    @target = session[:save]['target']
+    @order = session[:save]['order']
+    @date = session[:save]['date']
+    @list = get_list(get_all_list(), @target, @date, @order)
+    session[:page] = {'first' => 0, 'last' => @list.size }
   end
 
-  def get_path
+  def page
+  end
+  
+  def get_list(alist, target, key, order)
+    p key
+    list = []
+    alist.each do |movie|
+      info = get_info(movie, target)
+      if(compare(key,info))
+        list << movie
+      end
+    end
+    if order == 'd'
+      return list.reverse
+    else
+      return list
+    end
+  end
+  
+  def compare(a,b)
+    alist = a.split("-")
+    blist = b.split("-")
+    short = []; long = [];
+    if(alist.size <= blist.size)
+      short = alist; long = blist
+    else
+      short = blist; long = alist
+    end
+    short.each_index do |i|
+      if(short[i] != long[i])
+        return false
+      end
+    end
+    return true
+  end
+  
+  def get_all_list
     list = []
     Dir::glob("public/images/**/*.jpg").each {|f|
       f[0..5] = ""
@@ -53,10 +70,16 @@ class MoviesController < ApplicationController
     return list;
   end
   
-  def get_info(filename)
+  def get_info(filename,type="all")
     re = /(\d\d\d\d-\d\d-\d\d-\d\d-\d\d)-(\d\d)/
     list = filename.scan(re)
-    return {'date' => list[0][0], 'camera' => list[0][1].to_i }
+    if(type == "all")
+      return {'date' => list[0][0], 'camera' => list[0][1].to_i }
+    elsif(type == 'date')
+      return list[0][0]
+    elsif(type == 'camera')
+      return list[0][1].to_i
+    end
   end
 
   def get_title(target)
@@ -64,13 +87,10 @@ class MoviesController < ApplicationController
     return "<p>CAMERA: #{info['camera']}</p><p>DATE:#{info['date']}</p>"
   end
   
-  def list_change
-    t = params[:select_order].scan(/(\w+)_(\w)/)
-    target = t[0][0]
-    order = t[0][1]
-    num = 0
-    num = params[:select_num]
-    redirect_to :action => "show", :mode => 'detail', :target => target, :num => num, :order => order   
+  def select
+    order = params[:select_order]
+    session[:save]['order'] = order
+    redirect_to :action => "show", :order => order, :target => session[:save]['target'], :date => session[:save]['date']
   end
   
   def create_num_list(list)
@@ -79,23 +99,6 @@ class MoviesController < ApplicationController
       numlist << [list[i][0], i]
     end
     return numlist
-  end
-
-  def list_group(list, target, order)
-    glist = Hash.new
-    list.each do |movie|
-      info = get_info(movie)
-      if glist.has_key?(info[target])
-        glist[info[target]] << movie
-      else
-        glist[info[target]] = [movie]
-      end
-    end
-    if order == 'd'
-      return glist.sort{|a, b| b[0] <=> a[0] }
-    else
-      return glist.sort{|a, b| a[0] <=> b[0] }
-    end
   end
 end
 

@@ -7,6 +7,7 @@ $tab_base_color: #CCCCCC;
 
 html {
   height: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -16,8 +17,8 @@ body {
   font-size: 13px;
   line-height: 18px;
   text-align: center;
-  padding: 0px;
-  margin: 0px;
+  padding: 30px 0px;
+  margin: 0px auto;
   height: 100%;
 }
 
@@ -35,8 +36,10 @@ pre {
 
 #wrapper {
   background-color: white;
-  margin: 0px 20px;
-  height: 100%;
+  margin: 10px 0px 0px 0px auto;
+  height:80%;
+  width: 100%;
+  position: fixed;
 }
 #header {
   background-color: white;
@@ -58,35 +61,19 @@ pre {
 
 $page-height: 640px;
 
-.etabs { margin: 0; padding: 0; text-align:left; }
-.tab { 
-    display: inline-block; 
-    zoom:1; *display:inline; 
-    background: #eee;
-    border: solid 1px #999; 
-    border-bottom: none; }
-
-.tab a { font-size: 14px; line-height: 2em; display: block; padding: 0 10px; outline: none; color: #333; }
-.tab a:hover { text-decoration: underline; }
-.tab.active { background: #fff; padding-top: 6px; position: relative; top: 1px; border-color: #666; }
-.tab a.active { font-weight: bold; }
-.tab-container .panel-container {
-    overflow: scroll; 
-    background: #fff; border: solid #666 1px; padding: 10px; }
-
-.panel-container { margin-bottom: 10px; }
-
-#pages {
-    margin: 0 auto;
+.pages {
+    margin: 0px auto;
+}
+#pager {
+    width: 500px;
+    padding: 10px 0px;
 }
 
 #select {
-    left: 60%;
     list-style-type: none;
-    position: fixed;
-    margin: 0px auto;
+    margin: 5px 100px 0px 0px;
+    text-align: right;
     padding: 10px;
-    background: white;
     height: 30px;
 }
 #select ul {
@@ -98,19 +85,34 @@ $page-height: 640px;
 #select form {
     display: inline;
 }
+.ui-tabs-panel {
+    height: $page-height;
+    overflow: scroll;
+}
 #movie-list {
-    overflow: scroll; 
-    padding: 50px 20px 20px 20px;
+    overflow: scroll;
+    padding: 10px;
 }
 
-#outline, #detail {
-    height: $page-height;
-    padding: 0px;
+.image-frame {
+  width:160px; height: 120px;
+  display: block;
+	padding:10px 10px 30px 10px;
+	margin:5px 20px;
+  float: left;
+	border:1px solid #ddd;
+	background:#eee url(loading.gif) 50% 50% no-repeat;
 }
-#pager {
-    width: 500px;
-    margin: 0px auto;
+.image-frame span {
+	padding:0px; margin:0px;
+  float:right;
+  display:block;
 }
+.image-frame a {
+  display:block;
+	padding:0px; margin:0px;
+}
+
 #map-wrapper {
     position: relative;
 }

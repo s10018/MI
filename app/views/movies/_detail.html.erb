@@ -1,46 +1,43 @@
-<!-- Comment -->
+
 <ul id="select">
   <li>
-    <%= form_tag("/movies/select", :method => :post, :remote => true) do %>
-      <%= select_tag 'select_order', options_for_select($select_order_list, "#{@target}_#{@order}"), 
+    <%= form_tag("/movies/select", :method => :post) do %>
+      <%= select_tag 'select_order', options_for_select($select_order_list, "#{@order}"), 
           {:onchange => "this.form.submit();"} %>
-      <%= select_tag 'select_num', options_for_select(@select_num_list, @num), {:onchange => "this.form.submit();"} %>
     <% end %>
   </li>
-  <li><input type="text" name="hogedate" id="datepicker"></li>
+  <li><input type="text" name="datepicker" id="datepicker"></input>
 </ul>
 
 <div id="test"></div>
 
-<div id="movie-list" class="container">
-  <% @list.each_index do |i| %>
-    <% if (i%$column) == 0 %><div id="row<%= i/$column + 1 %>"><% end %>
-    <%= link_to image_tag(@list[i], 
-                          { :class => "camera-image",:id => "#{@target}-#{@num}-#{i}", :border => '1', 
-                            :alt => '', :witdh => $width * $scale, :height => $height * $scale }), 
-        @list[i], { :class => "fancybox", :ref => "gallery", :alt => '', :caption => get_title(@list[i]) } %>
-    <% if ((i+1)%$column) == 0 || i == @list.size %></div><% end %>
-  <% end %>
+  <div id="movie-list">
+  
+    <% @list.each_index do |i| %>
+      <% if (i%$column) == 0 %><div id="row<%= i/$column + 1 %>" class="row"><% end %>
+      <div class="image-frame">
+        <span><%= "camera : #{get_info(@list[i],'camera')}" %></span>
+        <%= link_to image_tag(@list[i], 
+                              { :class => "camera-image", :border => '1', 
+                                :alt => '', :witdh => $width * $scale, :height => $height * $scale }), 
+            @list[i], { :class => "fancybox", :ref => "gallery", :alt => '', :caption => get_title(@list[i]) } %>
+      </div> 
+      <% if ((i+1)%$column) == 0 || i == @list.size %></div><% end %>
+    <% end %>
 </div>
+  <div id="pager" class="pages">
+    <span class="nextprev">« Previous</span>
+    <span class="current">1</span>
+    <a href="" title="Go to page 2">2</a>
+    <a href="" title="Go to page 3">3</a>
+    <a href="" title="Go to page 4">4</a>
+    <a href="" title="Go to page 5">5</a>
+    <span>...</span><a href="/page23" title="Go to page 23">23</a>
+    <a href="/page24" title="Go to page 24">24</a>
+    <a href="/page2" class="nextprev" title="Go to Next Page">Next »</a>
+  </div>
 
-<div id="pager" class="pages">
-  <span class="nextprev">« Previous</span>
-  <span class="current">1</span>
-  <a href="" title="Go to page 2">2</a>
-  <a href="" title="Go to page 3">3</a>
-  <a href="" title="Go to page 4">4</a>
-  <a href="" title="Go to page 5">5</a>
-  <a href="" title="Go to page 6">6</a>
-  <a href="" title="Go to page 7">7</a>
-  <a href="" title="Go to page 8">8</a>
-  <a href="/page9" title="Go to page 9">9</a>
-  <a href="/page10" title="Go to page 10">10</a>
-  <span>...</span><a href="/page230" title="Go to page 230">230</a>
-  <a href="/page231" title="Go to page 231">231</a>
-  <a href="/page2" class="nextprev" title="Go to Next Page">Next »</a>
 </div>
-
-
 
 
 

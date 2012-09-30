@@ -1,4 +1,3 @@
-
 $(document).ready(function() {
   // パラメータの取得: param().num
   var params = function() {
@@ -17,7 +16,6 @@ $(document).ready(function() {
     };
     return tab_hash[params().mode];
   };
-
   $("#slider").slider({
     orientation: 'horizontal',
     range: 'min',
@@ -32,6 +30,11 @@ $(document).ready(function() {
     var value = $( '#slider' ).slider( 'value' );
   }
 
+  $('#pages').tabs({
+    selected: 1,
+    fx: { opacity: 'toggle', duration: 'normal'}
+  });
+
   $("#datepicker").datepicker({
     dateFormat: 'yy-mm-dd',
     changeMonth: true,
@@ -40,34 +43,33 @@ $(document).ready(function() {
     showMonthAfterYear: false
   });
 
-  $('#pages').tabs({
-    selected: tab_id(),
-    fx: { opacity: 'toggle', duration: 'normal'}
-  });
-
-  $("a.fancybox")
+  $('.fancybox')
       .attr('rel', 'gallery')
-      .fancybox(
-        {
-          beforeLoad: function() {
-            this.title = $(this.element).attr('caption');
+      .fancybox({
+		    openEffect	: 'none',
+		    closeEffect	: 'none',
+		    nextEffect	: 'fade',
+		    prevEffect	: 'fade',
+        beforeLoad: function() {
+          this.title = $(this.element).attr('caption');
+        },
+        helpers : {
+          overlay : {
+            css : {
+              'background' : 'rgba(0, 0, 0, 0.7)'
+            }
           },
-          nextSpeed : 250,
-          helpers : {
-            overlay : {
-              css : {
-                'background' : 'rgba(0, 0, 0, 0.7)'
-              }
-            },
-            title : {
-              type : 'inside'
-            },
-			      thumbs	: {
-				      width	: 50,
-				      height	: 50
-			      }
-          }
+          title : {
+            type : 'inside'
+          },
+			    thumbs	: {
+				    width	: 32,
+				    height	: 24
+			    }
         }
-      );
-
+      });
+  $('#datepicker').change(function() {
+    $.post('/movies/select',{});
+  });
 });
+

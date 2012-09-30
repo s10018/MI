@@ -46,15 +46,11 @@ MI::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
 
-  get "pager/prev"
-  get "pager/next"
-  get "pager/first"
-  get "pager/last"
+  get "movies/detail"
+  get "movies/outline"
+  get "movies/show"
+  post 'movies/select'
 
-  match '/movies/select' => 'movies#list_change', :via => 'post'
-  match '/movies' => 'movies#show'
-  match '/index' => redirect('/')
-  
   root :controller => 'movies', :action => 'index'
 
   # See how all your routes lay out with "rake routes"

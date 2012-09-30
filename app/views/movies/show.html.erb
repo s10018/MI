@@ -1,24 +1,27 @@
 
+<div id="header">
+  <a href="/index.html">
+    <%= image_tag("MILAiS_logo_header.png", { :border => '0', :alt => 'MILAiSLogo', :witdh => 550 * 0.3, :height => 117 * 0.3}) %>
+  </a>
+</div>
+
 <div id="wrapper">
+
   <div id="test"></div>
-  <div id="header">
-    <a href="/index.html">
-      <%= image_tag("MILAiS_logo_header.png", { :border => '0', :alt => 'MILAiSLogo', :witdh => 550 * 0.3, :height => 117 * 0.3}) %>
-    </a>
-  </div>
 
   <div id="pages" class="tab-container">
-    <ul id="menu" class="etabs">
+    <ul id="menu">
       <li id="tab-1" class="tab"><%= link_to "全体", '#outline' %></li>
       <li id="tab-2" class="tab"><%= link_to "詳細", '#detail' %></li>
     </ul>
-    <div id="outline" class="panel-container">
-      <%= render "outline" %>
+    <div id="outline">
+      <%= render(:partial => "outline" ) %>
     </div>
-    <div id="detail" class="panel-container">
-      <%= render "detail" %>
+    <div id="detail">
+      <%= render(:partial => "detail" ) %>
     </div>
   </div>
+
 </div>
 
-<% if false %><% end %>
+<div id="footer"></div>
