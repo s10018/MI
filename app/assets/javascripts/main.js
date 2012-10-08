@@ -68,9 +68,5 @@ $(document).ready(function() {
 			    }
         }
       });
-  $('#datepicker').change(function() {
-    alert($('#datepicker').val());
-    $.post('/movies/select',{ date: $('#datepicker').val() });
-  });
 });
 

@@ -4,9 +4,9 @@
     <%= form_tag("/movies/select", :method => :post) do %>
       <%= select_tag 'select_order', options_for_select($select_order_list, "#{@order}"), 
           {:onchange => "this.form.submit();"} %>
+      <input type="text" name="datepicker" id="datepicker" onchange="this.form.submit()"></input>
     <% end %>
   </li>
-  <li><input type="text" name="datepicker" id="datepicker"></input>
 </ul>
 
 <div id="test"></div>

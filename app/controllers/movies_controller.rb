@@ -8,8 +8,8 @@ class MoviesController < ApplicationController
   $height = 480
   $row = 3
   $column = 6
-  $select_order_list = [['降順','a'],
-                        ['昇順','d']]
+  $select_order_list = [['降順','d'],
+                        ['昇順','a']]
   $max_camera = 14
   
   def index
@@ -88,9 +88,14 @@ class MoviesController < ApplicationController
   end
   
   def select
-    order = params[:select_order]
-    session[:save]['order'] = order
-    redirect_to :action => "show", :order => order, :target => session[:save]['target'], :date => session[:save]['date']
+    if(params[:select_order])
+      session[:save]['order'] = params[:select_order]
+    end
+    if(params[:datepicker])
+      session[:save]['date'] = params[:datepicker]
+    end
+    redirect_to :action => "show", :order => session[:save]['order'],
+    :target => session[:save]['target'], :date => session[:save]['date']
   end
   
   def create_num_list(list)
