@@ -64,9 +64,10 @@ $page-height: 640px;
 .pages {
     margin: 0px auto;
 }
-#pager {
-    width: 300px;
-    padding: 30px 0px;
+
+.pagination {
+  height:40px;
+  margin:5px 0;
 }
 
 #select {
@@ -89,9 +90,17 @@ $page-height: 640px;
     height: $page-height;
     overflow: scroll;
 }
+#milais_logo {
+    height: 40px;
+}
+#select_order {
+    width: auto;
+}
+
 #movie-list {
-    overflow: scroll;
+    width: auto;
     padding: 10px;
+    margin: 0px auto;
 }
 
 .image-frame {

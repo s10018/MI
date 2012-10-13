@@ -1,5 +1,5 @@
 $(document).ready(function() {
-  // パラメータの取得: param().num
+  // パラメータの取得: params().num
   var params = function() {
     var vars = [], hash;
     hashes = window.location.search.substring(1).split('&'); 
@@ -40,7 +40,18 @@ $(document).ready(function() {
     changeMonth: true,
     changeYear: true,
     yearRange: '2000:2020',
-    showMonthAfterYear: false
+    showMonthAfterYear: false,
+    showButtonPanel: true,
+    closeText: "Send",
+    beforeShow: function() {
+      
+    },
+    onSelect: function() {
+      this.show();
+    },
+    onClose: function(date,inst) {
+      if(!(date == params().date)){ this.form.submit(); }
+    }
   });
 
   $('.fancybox')

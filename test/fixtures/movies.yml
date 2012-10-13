@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  path: MyString
+  camera: MyString
+  date: MyString
+
+two:
+  path: MyString
+  camera: MyString
+  date: MyString

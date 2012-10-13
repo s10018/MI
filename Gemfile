@@ -20,9 +20,14 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
   gem 'uglifier', '>= 1.0.3'
   gem 'jquery-cookie-rails'
+
+  gem 'therubyracer', :platform => :ruby
+  gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
+
 end
 
 gem 'jquery-rails'
+gem 'kaminari'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

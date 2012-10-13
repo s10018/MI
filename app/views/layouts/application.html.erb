@@ -1,16 +1,23 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>MI</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-  <script type="text/javascript">
-  </script>
-</head>
-<body>
+  <head>
+    <title>MI</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
 
-<%= content_for?(:main) ? yield(:main) : yield %>
+    <div id="header">
+      <%= link_to "DB更新", :controller => "movies", :action => "allupdate" %>
+      <a href="/index.html">
+        <%= image_tag("MILAiS_logo_header.png", { :border => '0', :alt => 'MILAiSLogo' , :id => "milais_logo"}) %>
+      </a>
+    </div>
+    
+    <%= content_for?(:main) ? yield(:main) : yield %>
+    
+    <div id="footer"></div>
 
-</body>
+  </body>
 </html>

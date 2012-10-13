@@ -49,6 +49,7 @@ MI::Application.routes.draw do
   get "movies/detail"
   get "movies/outline"
   get "movies/show"
+  get "movies/allupdate"
   post 'movies/select'
 
   root :controller => 'movies', :action => 'index'
