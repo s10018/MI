@@ -30,6 +30,26 @@ $(document).ready(function() {
     var value = $( '#slider' ).slider( 'value' );
   }
 
+  $("#partslider").slider({
+    orientation: 'horizontal',
+    range: 'min',
+    max: 6,
+    min: 0,
+    value: $("#partshow").val(),
+    step: 1,
+    change: function( event, ui ) {
+      $("#partshow").val(ui.value);
+      $("#part").attr("value", ui.value);
+      $("#partshow").trigger("change");
+      this.form.submit();
+    },
+    animate: 'fast'
+  });
+
+  $('#partshow').change(function() {
+    this.form.submit();
+  });
+
   $('#pages').tabs({
     selected: 1,
     fx: { opacity: 'toggle', duration: 'normal'}
@@ -47,7 +67,6 @@ $(document).ready(function() {
       
     },
     onSelect: function() {
-      this.show();
     },
     onClose: function(date,inst) {
       if(!(date == params().date)){ this.form.submit(); }
@@ -79,5 +98,7 @@ $(document).ready(function() {
 			    }
         }
       });
+
+  $(".camera-image").fadeIn(600);
 });
 

@@ -2,6 +2,8 @@
 <ul id="select">
   <li>
     <%= form_tag("/movies/select", :method => :post) do %>
+      <div id="partslider"></div><input type="text" id="partshow" value="<%= @part %>"></input>時限目
+      <%= hidden_field_tag(:part,@part) %>
       <%= select_tag 'select_order', options_for_select($select_order_list, "#{@order}"), 
           {:onchange => "this.form.submit();"} %>
       <input type="text" name="datepicker" id="datepicker" value="<%= @date %>"></input>
@@ -13,16 +15,22 @@
 
   <div id="movie-list">
   
-    <% @list.each_index do |i| %>
-      <% if (i%$column) == 0 %><div id="row<%= i/$column + 1 %>" class="row"><% end %>
-      <div class="image-frame">
-        <span><%= "camera : #{@list[i].camera}" %></span>
-        <%= link_to image_tag(@list[i].path, 
-                              { :class => "camera-image", :border => '1', 
-                                :alt => '', :witdh => $width * $scale, :height => $height * $scale }), 
-            @list[i].path, { :class => "fancybox", :ref => "gallery", :alt => '', :caption => get_title(@list[i]) } %>
-      </div> 
-      <% if ((i+1)%$column) == 0 || i == @list.size %></div><% end %>
+    <% if @list.size > 0 %>
+
+      <% @list.each_index do |i| %>
+        <% if (i%$column) == 0 %><div id="row<%= i/$column + 1 %>" class="row"><% end %>
+        <div class="image-frame">
+          <span><%= "camera : #{@list[i].camera}" %></span>
+          <%= link_to image_tag(@list[i].path, 
+                                { :class => "camera-image", :border => '1', 
+                                  :alt => '', :witdh => $width * $scale, :height => $height * $scale }), 
+              @list[i].path, { :class => "fancybox", :ref => "gallery", :alt => '', :caption => get_title(@list[i]) } %>
+        </div> 
+        <% if ((i+1)%$column) == 0 || i == @list.size %></div><% end %>
+      <% end %>
+
+    <% else %>
+      <p>Movie nothing..</p>
     <% end %>
 
     </div>

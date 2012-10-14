@@ -2,8 +2,12 @@
 class Movie < ActiveRecord::Base
   attr_accessible :camera, :date, :path
   paginates_per 18
-  scope :order_by_date, order("date")
-  scope :order_by_date_desc, order("date desc")
+  scope :order_by_date, lambda {|date|
+    where("date like ?","#{date}%").order("date")
+  }
+  scope :order_by_date_desc, lambda {|date|
+    where("date like ?","#{date}%").order("date desc")
+  }
   
   def self.get_list(target, key, order, alist = get_all_list)
     list = []

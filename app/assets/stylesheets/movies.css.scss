@@ -96,13 +96,32 @@ $page-height: 640px;
 #select_order {
     width: auto;
 }
+#select div {
+    display:inline-block;
+}
+#partslider {
+    width: 120px;
+    margin: 0px 10px;
+}
+#partslider .ui-slider-range {
+    background: #ffffff;
+}
+#partslider .ui-slider-handle {
+    border-color: #ef2929;
+}
+#partshow {
+    width: 10px;
+    margin: 0px 10px;
+}
 
 #movie-list {
     width: auto;
     padding: 10px;
     margin: 0px auto;
 }
-
+.thumb {
+    width: 10%;
+}
 .image-frame {
   width:160px; height: 120px;
   display: block;
@@ -126,8 +145,11 @@ $page-height: 640px;
     position: relative;
 }
 
-#map-wrapper img#thumb {
+#map-wrapper img.thumb {
     position: absolute;
     top: 0px;
     left: 0px;
+}
+.camera-image {
+    display:none;
 }
