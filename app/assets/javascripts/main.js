@@ -42,21 +42,18 @@ $(document).ready(function() {
   $("#partslider").slider({
     orientation: 'horizontal',
     range: 'min',
-    max: 8,
+    max: 7,
     min: 0,
-    value: part_hash[$("#partshow").val()],
+    value: part_hash[$("#partshow").text()],
     step: 1,
     change: function( event, ui ) {
       var value = part_hash[ui.value];
-      //$("#partshow").val(ui.value);
       $("#part").attr("value", ui.value);
-      $("#partshow").trigger("change");
-      this.form.submit();
+      $("#part").trigger("change");
     },
     animate: 'fast'
   });
-
-  $('#partshow').change(function() {
+  $('#part').change(function() {
     this.form.submit();
   });
 
@@ -67,12 +64,8 @@ $(document).ready(function() {
 
   $("#datepicker").datepicker({
     dateFormat: 'yy-mm-dd',
-    changeMonth: true,
-    changeYear: true,
     yearRange: '2000:2020',
     showMonthAfterYear: false,
-    showButtonPanel: true,
-    closeText: "Send",
     beforeShow: function() {
       
     },
@@ -80,7 +73,8 @@ $(document).ready(function() {
     },
     onClose: function(date,inst) {
       if(!(date == params().date)){ this.form.submit(); }
-    }
+    },
+    showAnim: "drop"
   });
 
   $('.fancybox')
@@ -109,6 +103,27 @@ $(document).ready(function() {
         }
       });
 
-  $(".camera-image").fadeIn(600);
+	$('.camera-image').hide();//hide all the images on the page
+	$('#movie-list').fadeIn(600);//fades in the hidden images one by one
+
+  $("#range-check").buttonset();
+  $("#order-select").buttonset();
+
+  $("#button").button();
+
 });
 
+var i = 0;//initialize
+var int=0;//Internet Explorer Fix
+$(window).bind("load", function() {//The load event will only fire if the entire page or document is fully loaded
+	var int = setInterval("doThis(i)",100);//500 is the fade in speed in milliseconds
+});
+
+function doThis() {
+	var imgs = $('.camera-image').length + 1;//count the number of images on the page
+	if (i >= imgs) {// Loop the images
+		clearInterval(int);//When it reaches the last image the loop ends
+	}
+	$('.camera-image:hidden').eq(0).fadeIn(600);//fades in the hidden images one by one
+	i++; //add 1 to the count
+}

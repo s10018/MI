@@ -20,15 +20,8 @@ class MoviesController < ApplicationController
     @target = session[:save]['target']
     @order = session[:save]['order']
     @date = session[:save]['date']
-    @part = session[:save]['part']
-    if @order == 'd'
-      @list = Movie.order_by_date_desc(@date).page(params[:page])
-      @list = Movie.part(@date,@part.to_i).page(params[:page])
-    else
-      @list = Movie.order_by_date(@date).page(params[:page])
-    end
-    #session[:page] = {'first' => 0, 'last' => @list.size }
-
+    @part = session[:save]['part'].to_i
+    @list = Movie.part(@date,@part,@order).page(params[:page])
   end
   
   def select

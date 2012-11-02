@@ -2,18 +2,26 @@
 class Movie < ActiveRecord::Base
   attr_accessible :camera, :date, :path
   paginates_per 18
-  scope :order_by_date, lambda {|date|
-    where("date like ?","#{date}%").order("date")
+  scope :order_by_date, lambda {|date,order|
+    if(order == 'a')
+      where("date like ?","#{date}%").order("date")
+    else
+      where("date like ?","#{date}%").order("date desc")
+    end
   }
-  scope :order_by_date_desc, lambda {|date|
-    where("date like ?","#{date}%").order("date desc")
+  scope :date_range, lambda {|from, to|
+    where("date between ? and ?", from, to)
   }
-  scope :date_range, lambda {|from, to| where("date between ? and ?", from, to)}
-  scope :part, lambda {|date, part|
+  scope :part, lambda {|date, part, order|
     part_time = [ ['08-30','08-50'], ['08-50','10-30'], ['10-30','12-00'],
                   ['12-00','13-00'], ['13-00','14-40'], ['14-40','16-20'],
                   ['16-20','17-50'], ['17-50','20-00'] ]
-    where("date between ? and ?", "#{date}-#{part_time[part][0]}", "#{date}-#{part_time[part][1]}")
+    if(order == 'a')
+      where("date between ? and ?", "#{date}-#{part_time[part][0]}", "#{date}-#{part_time[part][1]}").order("date")
+    else
+      where("date between ? and ?", "#{date}-#{part_time[part][0]}", "#{date}-#{part_time[part][1]}").order("date desc")
+    end
+      
   }
   
   def self.get_list(target, key, order, alist = get_all_list)

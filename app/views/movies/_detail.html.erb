@@ -1,11 +1,38 @@
 
 <ul id="select">
   <li>
+    <div id="range-check">
+      範囲指定:
+      <input type="checkbox" id="range1" name="range1" value="1" checked="checked" />
+      <label for="range1">日付指定</label>
+      <input type="checkbox" id="range2" name="range2" value="2" checked="checked" />
+      <label for="range2">時限指定</label>
+    </div>
+  </li>
+  <li>
+    <button id="button">Camera</button>
+  </li>
+  <li>
     <%= form_tag("/movies/select", :method => :post) do %>
-      <div id="partslider"></div><input type="text" id="partshow" value="<%= get_part(@part.to_i) %>"></input>
+      <div id="partshow"><%= get_part(@part.to_i) %></div>
+      <div id="partslider"></div>
       <%= hidden_field_tag(:part,@part) %>
-      <%= select_tag 'select_order', options_for_select($select_order_list, "#{@order}"), 
-          {:onchange => "this.form.submit();"} %>
+    <% end %>
+  </li>
+  <li>
+    <%= form_tag("/movies/select", :method => :post) do %>
+      <div id="order-select">
+        <input type="radio" id="asec" name="select_order" value="a"
+               <% if params[:order] == "a" %> checked="checked" <% end %>onchange="this.form.submit();"/>
+        <label for="asec">昇順</label>
+        <input type="radio" id="desc" name="select_order" value="d"
+               <% if params[:order] == "d" %> checked="checked" <% end %>onchange="this.form.submit();"/>
+        <label for="desc">降順</label>
+      </div>
+    <% end %>
+  </li>
+  <li>
+    <%= form_tag("/movies/select", :method => :post) do %>
       <input type="text" name="datepicker" id="datepicker" value="<%= @date %>"></input>
     <% end %>
   </li>
@@ -13,31 +40,28 @@
 
 <div id="test"></div>
 
-  <div id="movie-list">
+<div id="movie-list">
   
-    <% if @list.size > 0 %>
-
-      <% @list.each_index do |i| %>
-        <% if (i%$column) == 0 %><div id="row<%= i/$column + 1 %>" class="row"><% end %>
-        <div class="image-frame">
-          <span><%= "camera : #{@list[i].camera}" %></span>
-          <%= link_to image_tag(@list[i].path, 
-                                { :class => "camera-image", :border => '1', 
-                                  :alt => '', :witdh => $width * $scale, :height => $height * $scale }), 
-              @list[i].path, { :class => "fancybox", :ref => "gallery", :alt => '', :caption => get_title(@list[i]) } %>
-        </div> 
-        <% if ((i+1)%$column) == 0 || i == @list.size %></div><% end %>
-      <% end %>
-
-    <% else %>
-      <p>Movie nothing..</p>
+  <% if @list.size > 0 %>
+    
+    <% @list.each_index do |i| %>
+      <div class="image-frame">
+        <span><%= "camera : #{@list[i].camera}" %></span>
+        <%= link_to image_tag(@list[i].path, 
+                              { :class => "camera-image", :border => '1', 
+                                :alt => '', :witdh => $width * $scale, :height => $height * $scale }), 
+            @list[i].path, { :class => "fancybox", :ref => "gallery", :alt => '', :caption => get_title(@list[i]) } %>
+      </div> 
     <% end %>
 
-    </div>
+  <% else %>
+    <p>Movie nothing..</p>
+  <% end %>
+
+</div>
 
 <%= paginate @list %>
 
-</div>
 
 
 
