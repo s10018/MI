@@ -29,16 +29,26 @@ $(document).ready(function() {
   function refreshImage() {
     var value = $( '#slider' ).slider( 'value' );
   }
-
+  var part_hash = {
+    '0時限目':0,  
+    '1時限目':1,  
+    '2時限目':2,  
+    '昼休み' :3,
+    '3時限目':4,  
+    '4時限目':5,  
+    '5時限目':6,
+    '6時限目':7
+  };
   $("#partslider").slider({
     orientation: 'horizontal',
     range: 'min',
-    max: 6,
+    max: 8,
     min: 0,
-    value: $("#partshow").val(),
+    value: part_hash[$("#partshow").val()],
     step: 1,
     change: function( event, ui ) {
-      $("#partshow").val(ui.value);
+      var value = part_hash[ui.value];
+      //$("#partshow").val(ui.value);
       $("#part").attr("value", ui.value);
       $("#partshow").trigger("change");
       this.form.submit();

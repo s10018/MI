@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 module MovieHelper
   
   def get_info(filename,type="all")
@@ -16,6 +17,10 @@ module MovieHelper
     return "<p>CAMERA: #{target.camera}</p><p>DATE:#{target.date}</p>"
   end
   
+  def get_part(part)
+    h = ['0時限目','1時限目','2時限目','昼休み','3時限目','4時限目','5時限目','6時限目']
+    return h[part];
+  end
 
 end
 

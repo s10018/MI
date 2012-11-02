@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class MoviesController < ApplicationController
-
+  include MovieHelper
+  
   $scale = 0.25
   $width = 640
   $height = 480
@@ -11,7 +12,7 @@ class MoviesController < ApplicationController
   $max_camera = 14
   
   def index
-    redirect_to :action => "show", :target => 'date', :date => '2012-09-20-19-00', :order => 'd', :part => "3", :page => "1"
+    redirect_to :action => "show", :target => 'date', :date => '2012-10-22', :order => 'd', :part => "5", :page => "1"
   end
   
   def show
@@ -22,10 +23,12 @@ class MoviesController < ApplicationController
     @part = session[:save]['part']
     if @order == 'd'
       @list = Movie.order_by_date_desc(@date).page(params[:page])
+      @list = Movie.part(@date,@part.to_i).page(params[:page])
     else
       @list = Movie.order_by_date(@date).page(params[:page])
     end
-    session[:page] = {'first' => 0, 'last' => @list.size }
+    #session[:page] = {'first' => 0, 'last' => @list.size }
+
   end
   
   def select
