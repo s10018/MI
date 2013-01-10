@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
   // パラメータの取得: params().num
   var params = function() {
     var vars = [], hash;
@@ -16,6 +17,7 @@ $(document).ready(function() {
     };
     return tab_hash[params().mode];
   };
+
   $("#slider").slider({
     orientation: 'horizontal',
     range: 'min',
@@ -56,7 +58,6 @@ $(document).ready(function() {
   $('#part').change(function() {
     this.form.submit();
   });
-
   $('#pages').tabs({
     selected: 1,
     fx: { opacity: 'toggle', duration: 'normal'}
@@ -67,7 +68,6 @@ $(document).ready(function() {
     yearRange: '2000:2020',
     showMonthAfterYear: false,
     beforeShow: function() {
-      
     },
     onSelect: function() {
     },
@@ -77,7 +77,7 @@ $(document).ready(function() {
     showAnim: "drop"
   });
 
-  $('.fancybox')
+  $('.camera-image-f')
       .attr('rel', 'gallery')
       .fancybox({
 		    openEffect	: 'none',
@@ -102,28 +102,58 @@ $(document).ready(function() {
 			    }
         }
       });
+  $('#camera-map-f')
+      .attr('rel', 'camera-map')
+      .fancybox({
+		    openEffect	: 'none',
+		    closeEffect	: 'none',
+		    nextEffect	: 'fade',
+		    prevEffect	: 'fade',
+        helpers : {
+          overlay : {
+            css : {
+              'background' : 'rgba(0, 0, 0, 0.7)'
+            }
+          },
+          title : {
+            type : 'inside'
+          },
+			    thumbs	: {
+				    width	: 32,
+				    height	: 24
+			    }
+        }
+      });
 
 	$('.camera-image').hide();//hide all the images on the page
-	$('#movie-list').fadeIn(600);//fades in the hidden images one by one
+	$('#movie-list').fadeIn();//fades in the hidden images one by one
 
   $("#range-check").buttonset();
   $("#order-select").buttonset();
-
-  $("#button").button();
-
+  $("#process-box").buttonset();
+  $("#camera-map-f").button();
+  
 });
 
 var i = 0;//initialize
 var int=0;//Internet Explorer Fix
-$(window).bind("load", function() {//The load event will only fire if the entire page or document is fully loaded
-	var int = setInterval("doThis(i)",100);//500 is the fade in speed in milliseconds
-});
 
 function doThis() {
 	var imgs = $('.camera-image').length + 1;//count the number of images on the page
 	if (i >= imgs) {// Loop the images
-		clearInterval(int);//When it reaches the last image the loop ends
+		clearInterval(int); //When it reaches the last image the loop ends
+	  $('.image-frame').css("background","#eee");//fades in the hidden images one by one
 	}
 	$('.camera-image:hidden').eq(0).fadeIn(600);//fades in the hidden images one by one
 	i++; //add 1 to the count
 }
+$('head').append(
+	'<style type="text/css">#body { display: none; } #fade, #loader { display: block; }</style>'
+);
+jQuery.event.add(window,"load",function() { // 全ての読み込み完了後に呼ばれる関数
+	var pageH = $("body").height();
+	$("#fade").css("height", pageH).delay(900).fadeOut(800);
+	$("#loader").delay(600).fadeOut(300);
+	$("div#body").css("display", "block");
+  var int = setInterval("doThis(i)",150);
+});

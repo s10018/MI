@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-for c in `seq 150`
+for c in `seq 100`
 do
-#echo "Hoge"
     ./fetch_snap.sh; sleep 60;
 done

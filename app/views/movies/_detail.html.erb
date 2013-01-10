@@ -1,63 +1,44 @@
 
-<ul id="select">
-  <li>
-    <div id="range-check">
-      範囲指定:
-      <input type="checkbox" id="range1" name="range1" value="1" checked="checked" />
-      <label for="range1">日付指定</label>
-      <input type="checkbox" id="range2" name="range2" value="2" checked="checked" />
-      <label for="range2">時限指定</label>
-    </div>
-  </li>
-  <li>
-    <button id="button">Camera</button>
-  </li>
-  <li>
-    <%= form_tag("/movies/select", :method => :post) do %>
-      <div id="partshow"><%= get_part(@part.to_i) %></div>
-      <div id="partslider"></div>
-      <%= hidden_field_tag(:part,@part) %>
-    <% end %>
-  </li>
-  <li>
-    <%= form_tag("/movies/select", :method => :post) do %>
-      <div id="order-select">
-        <input type="radio" id="asec" name="select_order" value="a"
-               <% if params[:order] == "a" %> checked="checked" <% end %>onchange="this.form.submit();"/>
-        <label for="asec">昇順</label>
-        <input type="radio" id="desc" name="select_order" value="d"
-               <% if params[:order] == "d" %> checked="checked" <% end %>onchange="this.form.submit();"/>
-        <label for="desc">降順</label>
-      </div>
-    <% end %>
-  </li>
-  <li>
-    <%= form_tag("/movies/select", :method => :post) do %>
-      <input type="text" name="datepicker" id="datepicker" value="<%= @date %>"></input>
-    <% end %>
-  </li>
-</ul>
+<%= render(:partial => "select" ) %>
 
-<div id="test"></div>
+<div id="camera_map" class="container target">
+  <%= image_tag("MILAiSLayout.jpg", 
+                { :border => '0', :alt => '',
+                  :id => 'map'}) %>
+
+  <% @list.each do |f| %>
+    <%= image_tag(f.path,
+                  { :border => '0', :alt => '',
+                    :class => 'camera_map_th'}) %>
+  <% end %>
+</div>
 
 <div id="movie-list">
-  
   <% if @list.size > 0 %>
     
     <% @list.each_index do |i| %>
+      <% if i % 6 == 0 %>
+        <div class="image-row container">
+      <% end %>
+      <% if i == 12 %>
+        <div class="blank-frame"></div>
+      <% end %>
       <div class="image-frame">
         <span><%= "camera : #{@list[i].camera}" %></span>
         <%= link_to image_tag(@list[i].path, 
                               { :class => "camera-image", :border => '1', 
-                                :alt => '', :witdh => $width * $scale, :height => $height * $scale }), 
-            @list[i].path, { :class => "fancybox", :ref => "gallery", :alt => '', :caption => get_title(@list[i]) } %>
-      </div> 
+                                :alt => '', :width => $width * $scale, :height => $height * $scale }), 
+            @list[i].path, { :class => "camera-image-f", :alt => '', :caption => get_title(@list[i]) } %>
+      </div>
+      <% if i == 15 %>
+        <div class="blank-frame"></div>
+      <% end %>
+      <% if i == 5 || i == 11 || i == 15 %></div><% end %>
     <% end %>
 
   <% else %>
     <p>Movie nothing..</p>
   <% end %>
-
 </div>
 
 <%= paginate @list %>

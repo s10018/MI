@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 class Movie < ActiveRecord::Base
   attr_accessible :camera, :date, :path
-  paginates_per 18
+  $camera_size = 16
+  paginates_per $camera_size
   scope :order_by_date, lambda {|date,order|
     if(order == 'a')
       where("date like ?","#{date}%").order("date")
@@ -20,11 +21,16 @@ class Movie < ActiveRecord::Base
       where("date between ? and ?", "#{date}-#{part_time[part][0]}", "#{date}-#{part_time[part][1]}").order("date")
     else
       where("date between ? and ?", "#{date}-#{part_time[part][0]}", "#{date}-#{part_time[part][1]}").order("date desc")
-    end
-      
+    end   
   }
-  
-  def self.get_list(target, key, order, alist = get_all_list)
+  scope :control, lambda {|c, date, part, order|
+    dd = date.split(/-/)
+    t = Time.mktime(dd[0],dd[1],dd[2])
+    control = { "nm" => 4.week.ago(t), "nw" => 1.week.ago(t),
+      "pm" => 4.week.since(t), "pw" => 1.week.since(t) }
+    part(control[c].strftime("%Y-%m-%d"),part,order)
+  }
+  def self.get_list(target, key, order, alist = get_now_directory_list)
     list = []
     alist.each do |movie|
       info = get_info(movie, target)
@@ -42,7 +48,9 @@ class Movie < ActiveRecord::Base
   def self.get_info(filename,type="all")
     re = /(\d\d\d\d-\d\d-\d\d-\d\d-\d\d)-(\d\d)/
     list = filename.scan(re)
-    if(type == "all")
+    if(list == [])
+      return false
+    elsif(type == "all")
       return {'date' => list[0][0], 'camera' => list[0][1] }
     elsif(type == 'date')
       return list[0][0]
@@ -68,7 +76,7 @@ class Movie < ActiveRecord::Base
     return true
   end
   
-  def self.get_all_list
+  def self.get_now_directory_list
     list = []
     Dir::glob("public/images/**/*.jpg").each do |f|
       f[0..5] = "" # publicを除く
@@ -76,13 +84,25 @@ class Movie < ActiveRecord::Base
     end
     return list;
   end
-
+  
+  def self.get_dblist
+    all = Movie.all
+    list = all.map{|x| x.path}
+    return list
+  end
+  
   def self.all_update
-    #delete_all
-    all = get_all_list()
-    all.each do |m|
-      if(Movie.find(:all, :conditions=> "path = '#{m}'") == [])
-        info = get_info(m)
+    all = Movie.get_now_directory_list()
+    db = Movie.get_dblist()
+    diff = all - db
+    if(diff.size%$camera_size)
+      for n in 0..(diff.size%$camera_size-1) do
+        diff.pop
+      end
+    end
+    diff.each do |m|
+      info = get_info(m)
+      if(info)
         movie = new(:path => m, :camera => info['camera'], :date => info['date'])
         movie.save
       end

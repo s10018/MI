@@ -1,0 +1,51 @@
+<ul id="select">
+  <li>
+    <div id="process-box">
+    <%= form_tag("/movies/select", :method => :post) do %>
+      <button id="<<" name="control" value="pm"> << </button>
+      <button id="<" name="control" value="pw"> < </button>
+      <button id=">" name="control" value="nw"> > </button>
+      <button id=">>" name="control" value="nm"> >> </button>
+    <% end %>
+    </div>
+  </li>
+  <li>
+    <div id="range-check">
+      範囲指定:
+      <input type="checkbox" id="range1" name="range1" value="1" checked="checked" />
+      <label for="range1">日付指定</label>
+      <input type="checkbox" id="range2" name="range2" value="2" checked="checked" />
+      <label for="range2">時限指定</label>
+    </div>
+  </li>
+  <li>
+    <a id="camera-map-f" 
+       href="#camera_map">
+      Camera
+    </a>
+  </li>
+  <li>
+    <%= form_tag("/movies/select", :method => :post) do %>
+      <div id="partshow"><%= get_part(@part.to_i) %></div>
+      <div id="partslider"></div>
+      <%= hidden_field_tag(:part,@part) %>
+    <% end %>
+  </li>
+  <li>
+    <%= form_tag("/movies/select", :method => :post) do %>
+      <div id="order-select">
+        <input type="radio" id="asec" name="select_order" value="a"
+               <% if params[:order] == "a" %> checked="checked" <% end %>onchange="this.form.submit();"/>
+        <label for="asec">昇順</label>
+        <input type="radio" id="desc" name="select_order" value="d"
+               <% if params[:order] == "d" %> checked="checked" <% end %>onchange="this.form.submit();"/>
+        <label for="desc">降順</label>
+      </div>
+    <% end %>
+  </li>
+  <li>
+    <%= form_tag("/movies/select", :method => :post) do %>
+      <input type="text" name="datepicker" id="datepicker" value="<%= @date %>"></input>
+    <% end %>
+  </li>
+</ul>

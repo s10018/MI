@@ -12,30 +12,60 @@ class MoviesController < ApplicationController
   $max_camera = 14
   
   def index
-    redirect_to :action => "show", :target => 'date', :date => '2012-10-22', :order => 'd', :part => "5", :page => "1"
+    redirect_to :action => "show",
+    :target => 'date',
+    :date => '2012-10-22',
+    :order => 'd',
+    :control => nil,
+    :part => "5", :page => "1"
   end
   
   def show
-    session[:save] = {'target' => params[:target], 'date' => params[:date], 'order' => params[:order], 'part' => params[:part] }
+    session[:save] = {
+      'target' => params[:target],
+      'date' => params[:date],
+      'order' => params[:order],
+      'control' => params[:control],
+      'part' => params[:part]
+    }
     @target = session[:save]['target']
     @order = session[:save]['order']
     @date = session[:save]['date']
     @part = session[:save]['part'].to_i
-    @list = Movie.part(@date,@part,@order).page(params[:page])
+    @control = session[:save]['control']
+
+    @list = Movie.part(@date,@part,@order).page(params[:page]).order("camera")
+    # {|a,b| a.attributes[name].to_i <=> b.attributes[name].to_i }
+    #
+
   end
   
   def select
     if(params[:select_order])
       session[:save]['order'] = params[:select_order]
+      session[:save]['control'] = nil
     end
     if(params[:datepicker])
       session[:save]['date'] = params[:datepicker]
+      session[:save]['control'] = nil
     end
     if(params[:part])
       session[:save]['part'] = params[:part]
+      session[:save]['control'] = nil
     end
-    redirect_to :action => "show", :order => session[:save]['order'],
-    :target => session[:save]['target'], :date => session[:save]['date'],
+    if(params[:control])
+      session[:save]['control'] = params[:control]
+      dd = session[:save]['date'].split(/-/)
+      t = Time.mktime(dd[0],dd[1],dd[2])
+      control = { "pm" => 1.month.ago(t), "pw" => 1.week.ago(t),
+        "nm" => 1.month.since(t), "nw" => 1.week.since(t) }
+      session[:save]['date'] = control[session[:save]['control']].strftime("%Y-%m-%d")
+    end
+    redirect_to :action => "show",
+    :order => session[:save]['order'],
+    :target => session[:save]['target'],
+    :date => session[:save]['date'],
+    :control => session[:save]['control'],
     :part => session[:save]['part']
   end
 
