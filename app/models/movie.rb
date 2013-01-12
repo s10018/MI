@@ -44,7 +44,11 @@ class Movie < ActiveRecord::Base
       return list
     end
   end
-
+  def self.get_time(movie)
+    re = /(\d\d\d\d-\d\d-\d\d-\d\d-\d\d)-(\d\d)/
+    list = movie.date.scan(re)
+    return list[0][0]
+  end
   def self.get_info(filename,type="all")
     re = /(\d\d\d\d-\d\d-\d\d-\d\d-\d\d)-(\d\d)/
     list = filename.scan(re)

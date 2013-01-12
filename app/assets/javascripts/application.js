@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require fancybox
 //= require jquery-ui
+//= require fancybox
 //= require_tree .

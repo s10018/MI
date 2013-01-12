@@ -1,0 +1,12 @@
+
+<%= image_tag("MILAiSLayout.jpg", 
+              { :border => '0', 
+                :alt => '',
+                :class => 'map'}) %>
+
+<% @list.each_index do |i| %>
+  <%= image_tag(@list[i].path,
+                { :border => '0', :alt => '',
+                  :class => 'camera_map_th',
+                  :id => "camera_map_th#{i}" }) %>
+<% end %>

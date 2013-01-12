@@ -6,41 +6,42 @@ $background: #bbbbbb;
 $tab_base_color: #CCCCCC;
 $base_color: #EEEEEE;
 $sub_color: #E6E6E6;
-$page-height: 640px;
 
 html {
-  height: 100%;
   overflow: hidden;
   background-color: $background;
   width: 100%;
+  height: 100%;
 }
-
 body {
   background-color: $background;
-  /* background-image: url(/assets/ui-smoothness/images/ui-bg-whiteline40x100.png); */
-  color: #333;
   font-size: 13px;
   line-height: 18px;
   text-align: center;
-  padding: 30px 0px;
+  padding: 0 0;
   margin: 0px auto;
   height: 100%;
   width: 100%;
 }
-a.camera-image-f:hover {
-  opacity:0.6;
-  filter: alpha(opacity=0.6);
-}
+/* loading */
 #loader {
-  width: 300px;
-  height:300px;
-	display: none;
+  background:white;
+  width: 100px;
+  height:100px;
 	position: fixed;
 	top: 50%;
 	left: 50%;
 	z-index: 100;
-  margin-top: -150px; /* heightの半分のマイナス値 */
-  margin-left: -150px; /* widthの半分のマイナス値 */
+  margin-top: -50px; /* heightの半分のマイナス値 */
+  margin-left: -50px; /* widthの半分のマイナス値 */
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  border:1px solid $background;
+}
+#loader > img {
+  margin: 32px 32px;
 }
 #fade {
 	width: 100%;
@@ -52,7 +53,6 @@ a.camera-image-f:hover {
 	left: 0px;
 	z-index: 50;
 }
-
 p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size: 13px;
@@ -67,93 +67,84 @@ pre {
   position: initial;
 	display: none;
 }
-#camera_map {
-  background-color:#eee;
-  border:1px solid #ddd;
-}
 .camera_map_th {
   z-index:101;
   width:10%;
   position: absolute;
-  top:0px;
-  left:0px;
+  left:10%;
+  top:10%;
 }
-#body {
-  width:95%;
-  margin: 0px 0px 0px 0px auto;
+.map {
+  z-index:1;
+  margin: 0 auto;
+}
+#camera_map {
+  background-color:#eee;
+  position: relative;
+}
+.camera-image:hover {
+  opacity:0.6;
+  filter: alpha(opacity=0.6);
+}
+/* base */
+#header {
+  margin: 10px 10px 10px 10px auto;
+  height:2%;
 }
 #wrapper {
   background-color: white;
-  margin: 10px 0px 0px 0px auto;
-  height:80%;
-  border-bottom-left-radius: 4px;
-  border-bottom-right-radius: 4px;
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
+  margin: 0 auto;
+  width:95%;
 }
-#header {
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  background-color: white;
-  text-align: right;
-  height:50px;
-  /* border-bottom-left-radius: 4px; */
-  /* border-bottom-right-radius: 4px; */
-  margin: 100px 0px 0px 0px auto;
+#footer {
+  margin: 10px auto;
 }
 #milais_logo {
-  border-top-right-radius: 4px;
-  height: 40px;
-  margin: 10px 10px 10px 10px auto;
+  height: 5%;
+  border: 1px solid $sub_color;
 }
-
-#footer {
-  background-color: $background;
+.slider-wrapper {
+  padding: 1%;
 }
-#slider-wrapper {
-  padding: 10px;
-}
-#slider {
+.slider {
   margin: 0 auto;
   width: 80%;
 }
-#slider .ui-slider-range {
-  background: #ffffff;
-}
-#slider .ui-slider-handle {
-  border-color: $background;
-}
 .ui-slider .ui-slider-handle {
   cursor: pointer;  
+}
+#minute-slider {
+  margin: 10px 10px 10px 10px;
+  text-align:center;
+  position: relative;
+  top: 10px;
 }
 .pages {
   margin: 0px auto;
   padding: 10px;
 }
-#select {
+.inline {
   list-style-type: none;
-  text-align: right;
+  text-align: center;
   padding: 10px;
   height: 30px;
 }
-#select ul {
+.right {
+  text-align: right;
+}
+.inline ul {
 
 }
-#select li {
+.inline li,form {
   display: inline;
 }
-#select form {
-  display: inline;
-}
-.ui-tabs-panel {
-  height: $page-height;
-  overflow: scroll;
-}
-#select_order {
-  width: auto;
-}
-#select div {
+.inline div {
   display:inline-block;
+}
+.ui-tab {
+  overflow: scroll;
+  width:100%;
+  margin: 0 auto;
 }
 #partslider {
   width: 120px;
@@ -179,17 +170,17 @@ pre {
   border-left-style: none;
 }
 #partshow {
-    width: 50px;
-    margin: 0px 0px;
+  width: 50px;
+  margin: 0px 0px;
 }
 /* 映像関係 */
 #movie-list {
-    margin: 5px;
-    padding: 5px;
-    height:75%;
+  width: 100%;
+  height:80%;
+  margin: 0 auto;
 }
 .thumb {
-    width: 10%;
+  width: 10%;
 }
 .image-frame {
   width:160px; height: 120px;
@@ -224,19 +215,6 @@ pre {
   display:block;
 	padding:0px; margin:0px;
 }
-.camera-image {
-  display:none;
-}
-#map-wrapper {
-  position: relative;
-}
-
-#map-wrapper img.thumb {
-  position: absolute;
-  top: 0%;
-  left: 0%;
-}
-
 #datepicker {
   width:80px;
   height:20px;
@@ -248,5 +226,4 @@ pre {
   background-color:$sub_color;
   margin:0px;
 }
-.ui-tabs-nav {
-}
+

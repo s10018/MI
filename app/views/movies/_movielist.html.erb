@@ -1,0 +1,40 @@
+<div id="movie-list">
+  <% if @list.size > 0 %>
+    
+    <% @list.each_index do |i| %>
+      <% if i % 6 == 0 %>
+        <div class="image-row container">
+      <% end %>
+      <% if i == 12 %>
+        <div class="blank-frame"></div>
+      <% end %>
+      <div class="image-frame">
+        <span><%= "camera : #{@list[i].camera}" %></span>
+        <%= link_to image_tag(@list[i].path, 
+                              { :class => "camera-image", 
+                                :border => '1', 
+                                :alt => '', 
+                                :width => $width * $scale, 
+                                :height => $height * $scale }
+                              ), 
+            "#image-full-#{i}", { :class => "camera-image-f", :alt => '', :caption => get_title(@list[i]) } %>
+      </div>
+      <div id="image-full-<%= i %>" style="display:none;">
+        <%= image_tag(@list[i].path, { 
+                        :class => "camera-image-full", 
+                        :border => '1', 
+                        :alt => '', 
+                      }) %>
+        <p>CAMERA:<%= @list[i].camera %></p>
+        <p>DATE:<%= @list[i].date %></p>
+      </div>
+      <% if i == 15 %>
+        <div class="blank-frame"></div>
+      <% end %>
+      <% if i == 5 || i == 11 || i == 15 %></div><% end %>
+    <% end %>
+
+  <% else %>
+    <p>Movie nothing..</p>
+  <% end %>
+</div>

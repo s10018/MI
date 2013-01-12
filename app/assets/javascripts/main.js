@@ -1,6 +1,11 @@
 $(document).ready(function() {
 
-  // パラメータの取得: params().num
+  $('.camera-image').hide();
+
+  $('#wrapper').css("height",$("body").height()*0.82);
+  $('.ui-tab').css("height",$("body").height()*0.82);
+
+  // パラメータの取得: params().[取得したいパラメータ名]
   var params = function() {
     var vars = [], hash;
     hashes = window.location.search.substring(1).split('&'); 
@@ -13,24 +18,26 @@ $(document).ready(function() {
   };
   var tab_id = function() {
     tab_hash = {
-      'outline': 0, 'detail': 1
+      'outline': 0, 'detail': 1, 'desc': 2
     };
     return tab_hash[params().mode];
   };
 
-  $("#slider").slider({
+  $("#minute-slider").slider({
     orientation: 'horizontal',
     range: 'min',
-    max: 100,
-    value: 50,
-    slide: refreshImage,
-    change: refreshImage,
+    max: 90,
+    min: 1,
+    value: params().page,
+    change: function( event, ui ) {
+      $("#page").attr("value", ui.value);
+      $("#page").trigger("change");
+    },
     animate: 'fast'
   });
-
-  function refreshImage() {
-    var value = $( '#slider' ).slider( 'value' );
-  }
+  $('#page').change(function() {
+    this.form.submit();
+  });
   var part_hash = {
     '0時限目':0,  
     '1時限目':1,  
@@ -58,9 +65,10 @@ $(document).ready(function() {
   $('#part').change(function() {
     this.form.submit();
   });
+
   $('#pages').tabs({
-    selected: 1,
-    fx: { opacity: 'toggle', duration: 'normal'}
+    selected: 0,
+    fx: { opacity: 'toggle', duration: 'normal' }
   });
 
   $("#datepicker").datepicker({
@@ -73,20 +81,19 @@ $(document).ready(function() {
     },
     onClose: function(date,inst) {
       if(!(date == params().date)){ this.form.submit(); }
-    },
-    showAnim: "drop"
+    },    
+    showAnim: "drop",
+    buttonImageOnly: true,
+    showOn: "button"
   });
 
   $('.camera-image-f')
       .attr('rel', 'gallery')
       .fancybox({
-		    openEffect	: 'none',
-		    closeEffect	: 'none',
+		    openEffect	: 'fade',
+		    closeEffect	: 'fade',
 		    nextEffect	: 'fade',
 		    prevEffect	: 'fade',
-        beforeLoad: function() {
-          this.title = $(this.element).attr('caption');
-        },
         helpers : {
           overlay : {
             css : {
@@ -107,8 +114,11 @@ $(document).ready(function() {
       .fancybox({
 		    openEffect	: 'none',
 		    closeEffect	: 'none',
-		    nextEffect	: 'fade',
-		    prevEffect	: 'fade',
+		    nextEffect	: 'none',
+		    prevEffect	: 'none',
+        beforeLoad: function() {
+          $('.map').delay(600).show();
+        },
         helpers : {
           overlay : {
             css : {
@@ -125,35 +135,52 @@ $(document).ready(function() {
         }
       });
 
-	$('.camera-image').hide();//hide all the images on the page
-	$('#movie-list').fadeIn();//fades in the hidden images one by one
+	$('#movie-list').fadeIn();
 
-  $("#range-check").buttonset();
-  $("#order-select").buttonset();
-  $("#process-box").buttonset();
-  $("#camera-map-f").button();
-  
+  $(".ui-button").button();
+  $("#minute-p").button();
+  $("#minute-n").button();
+  $("#minute-p").click(function() {
+    if(parseInt(params().page) - 1 > 0) {
+      $("#page").attr("value", parseInt(params().page) - 1);
+      $("#page").trigger("change");
+    }
+  });
+  $("#minute-n").click(function() {
+    if(parseInt(params().page) + 1 < 90) {
+      $("#page").attr("value", parseInt(params().page) + 1);
+      $("#page").trigger("change");
+    }
+  });
+  $(".ui-buttonset").buttonset();
+  $("#open_select").click(function() {
+    $("#show_select").dialog("open");
+    return false;
+  });
+  $("#show_select").dialog({
+    autoOpen: false,
+    show: "blind",
+    hide: "blind",
+    modal: true,
+    width: 500,
+    height: 500,
+    resizable: false
+  });
+  $('.tips').tipsy({gravity: 's'});
 });
 
-var i = 0;//initialize
-var int=0;//Internet Explorer Fix
-
-function doThis() {
-	var imgs = $('.camera-image').length + 1;//count the number of images on the page
-	if (i >= imgs) {// Loop the images
-		clearInterval(int); //When it reaches the last image the loop ends
-	  $('.image-frame').css("background","#eee");//fades in the hidden images one by one
-	}
-	$('.camera-image:hidden').eq(0).fadeIn(600);//fades in the hidden images one by one
-	i++; //add 1 to the count
-}
 $('head').append(
-	'<style type="text/css">#body { display: none; } #fade, #loader { display: block; }</style>'
+	'<style type="text/css">body { display: none; } #fade, #loader { display: block; }</style>'
 );
 jQuery.event.add(window,"load",function() { // 全ての読み込み完了後に呼ばれる関数
 	var pageH = $("body").height();
+  var delaytime = 150;
 	$("#fade").css("height", pageH).delay(900).fadeOut(800);
 	$("#loader").delay(600).fadeOut(300);
-	$("div#body").css("display", "block");
-  var int = setInterval("doThis(i)",150);
+	$("body").css("display", "block");
+  for(var i = 0; i < $(".camera-image").length; i++){
+    $('.camera-image').eq(i).delay(i*delaytime).fadeIn(600,function() {
+      $(this).parent().css("background","#E6E6E6");
+    });
+  }
 });

@@ -4,14 +4,14 @@
 
   <div id="pages" class="tab-container">
     <ul id="menu">
-      <li id="tab-1" class="tab"><%= link_to "全体", '#outline' %></li>
-      <li id="tab-2" class="tab"><%= link_to "詳細", '#detail' %></li>
+      <li id="tab-1" class="tab"><%= link_to "詳細", '#detail' %></li>
+      <li id="tab-2" class="tab"><%= link_to "説明", '#outline' %></li>
     </ul>
-    <div id="outline">
-      <%= render(:partial => "outline" ) %>
-    </div>
-    <div id="detail">
+    <div id="detail" class="ui-tab">
       <%= render(:partial => "detail" ) %>
+    </div>
+    <div id="outline" class="ui-tab">
+      <%= render(:partial => "map" ) %>
     </div>
   </div>
 

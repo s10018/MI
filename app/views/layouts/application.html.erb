@@ -7,26 +7,21 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <div id="loader" class="container">
-      <%= image_tag("loading.gif",{:alt => 'Loading...', :id => 'load-image'}) %>
+    <div id="loader">
+      <%= image_tag("loading.gif",{:alt => 'Loading...', :id => 'loading'}) %>
     </div>
     <div id="fade"></div>
-    <div id="body" class="container">
-      <!--<div id="header">
+    <div id="header">
+
+    </div>
+    <%= content_for?(:main) ? yield(:main) : yield %>
+    <div id="footer">
+      <a href="/index.html">
         <%= link_to "DB更新", :controller => "movies", :action => "allupdate" %>
-        <a href="/index.html">
-          <%= image_tag("MILAiS_logo_header.png", 
-                        { :border => '0', :alt => 'MILAiSLogo' , :id => "milais_logo"}) %>
-        </a>
-      </div>-->
-      <%= content_for?(:main) ? yield(:main) : yield %>
-      <div id="footer">
-        <a href="/index.html">
-          <%= link_to "DB更新", :controller => "movies", :action => "allupdate" %>
-          <%= image_tag("MILAiS_logo_header.png", 
-                        { :border => '0', :alt => 'MILAiSLogo' , :id => "milais_logo"}) %>
-        </a>
-      </div>
+          <%= link_to image_tag("MILAiS_logo_header.png", 
+                                { :border => '0', :alt => 'MILAiSLogo' , :id => "milais_logo"}), 
+              "http://www.milais.kyutech.ac.jp/" %>
+      </a>
     </div>
   </body>
 </html>

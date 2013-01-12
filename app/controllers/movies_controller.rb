@@ -15,9 +15,10 @@ class MoviesController < ApplicationController
     redirect_to :action => "show",
     :target => 'date',
     :date => '2012-10-22',
-    :order => 'd',
+    :order => 'a',
     :control => nil,
-    :part => "5", :page => "1"
+    :part => "5",
+    :page => "1"
   end
   
   def show
@@ -26,18 +27,19 @@ class MoviesController < ApplicationController
       'date' => params[:date],
       'order' => params[:order],
       'control' => params[:control],
-      'part' => params[:part]
+      'part' => params[:part],
+      'page' => params[:page]      
     }
     @target = session[:save]['target']
     @order = session[:save]['order']
     @date = session[:save]['date']
     @part = session[:save]['part'].to_i
+    @page = session[:save]['page'].to_i
     @control = session[:save]['control']
-
     @list = Movie.part(@date,@part,@order).page(params[:page]).order("camera")
-    # {|a,b| a.attributes[name].to_i <=> b.attributes[name].to_i }
-    #
-
+    if(@list.size > 0)
+      @time = get_info(@list[0].path,"date")
+    end
   end
   
   def select
@@ -53,6 +55,9 @@ class MoviesController < ApplicationController
       session[:save]['part'] = params[:part]
       session[:save]['control'] = nil
     end
+    if(params[:page])
+      session[:save]['page'] = params[:page]
+    end
     if(params[:control])
       session[:save]['control'] = params[:control]
       dd = session[:save]['date'].split(/-/)
@@ -66,6 +71,7 @@ class MoviesController < ApplicationController
     :target => session[:save]['target'],
     :date => session[:save]['date'],
     :control => session[:save]['control'],
+    :page => session[:save]['page'],
     :part => session[:save]['part']
   end
 

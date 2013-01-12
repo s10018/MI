@@ -1,48 +1,64 @@
+<ul class="inline">
+  <li>
+    <%= @time %> <%= hidden_field_tag(:max_page, @list.num_pages) %>
+  </li>
+  <li>
+    <div class="ui-buttonset">
+      <%= form_tag("/movies/select", :method => :post) do %>
+        <button class="tips" title="Prev Month" id="pm" name="control" value="pm">
+          <span class="ui-icon ui-icon-seek-prev"></span>
+        </button>
+        <button class="tips" title="Prev Week" id="pw" name="control" value="pw">
+          <span class="ui-icon ui-icon-triangle-1-w"></i>
+        </button>
+        <button class="tips" title="Next Week" id="nw" name="control" value="nw">
+          <span class="ui-icon ui-icon-triangle-1-e"></i>
+        </button>
+        <button class="tips" title="Next Month" id="nm" name="control" value="nm">
+          <span class="ui-icon ui-icon-seek-next"></i>
+        </button>
+      <% end %>
+    </div>
+  </li>
+<li>
+  <a id="camera-map-f" class="ui-button" href="#outline">
+    Camera
+  </a>
+</li>
+<li>
+  <a id="open_select" class="ui-button">
+    設定を変更
+  </a>
+</li>
+</ul>
 
-<%= render(:partial => "select" ) %>
-
+<div id="show_select" title="Show Option">
+  <%= render(:partial => "select" ) %>
+</div>
 <div id="camera_map" class="container target">
-  <%= image_tag("MILAiSLayout.jpg", 
-                { :border => '0', :alt => '',
-                  :id => 'map'}) %>
+  <%= render(:partial => "map" ) %>
+</div>
+<%= render(:partial => "movielist" ) %>
 
-  <% @list.each do |f| %>
-    <%= image_tag(f.path,
-                  { :border => '0', :alt => '',
-                    :class => 'camera_map_th'}) %>
+<div class="slider-wrapper inline">
+  <%= form_tag("/movies/select", :method => :post) do %>
+    <button class="tips" title="prev Minute" id="minute-p" name="control" value="minute-p">
+      <span class="ui-icon ui-icon-triangle-1-w"></i>
+    </button>
+    <div id="minute-slider" class="slider"></div>
+    <%= hidden_field_tag(:page, @page) %>
+    <button class="tips" title="Next Minute" id="minute-n" name="control" value="minute-n">
+      <span class="ui-icon ui-icon-triangle-1-e"></i>
+    </button>
   <% end %>
 </div>
 
-<div id="movie-list">
-  <% if @list.size > 0 %>
-    
-    <% @list.each_index do |i| %>
-      <% if i % 6 == 0 %>
-        <div class="image-row container">
-      <% end %>
-      <% if i == 12 %>
-        <div class="blank-frame"></div>
-      <% end %>
-      <div class="image-frame">
-        <span><%= "camera : #{@list[i].camera}" %></span>
-        <%= link_to image_tag(@list[i].path, 
-                              { :class => "camera-image", :border => '1', 
-                                :alt => '', :width => $width * $scale, :height => $height * $scale }), 
-            @list[i].path, { :class => "camera-image-f", :alt => '', :caption => get_title(@list[i]) } %>
-      </div>
-      <% if i == 15 %>
-        <div class="blank-frame"></div>
-      <% end %>
-      <% if i == 5 || i == 11 || i == 15 %></div><% end %>
-    <% end %>
+<!--<%= paginate @list %>-->
 
-  <% else %>
-    <p>Movie nothing..</p>
-  <% end %>
-</div>
-
-<%= paginate @list %>
-
-
-
-
+<!--
+245,318 -> 22
+378,318 -> 5
+502,318 -> 17
+378,195 -> 19
+502,195 -> 16
+-->
