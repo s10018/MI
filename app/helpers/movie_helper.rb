@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 module MovieHelper
+  include ActsAsTaggableOn::TagsHelper
   
   def get_info(filename,type="all")
     re = /(\d\d\d\d-\d\d-\d\d-\d\d-\d\d)-(\d\d)/

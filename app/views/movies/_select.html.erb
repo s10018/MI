@@ -1,3 +1,5 @@
+
+<p>表示する画像を絞り込みます</p>
 <div id="range-check" class="ui-buttonset">
   範囲指定:
   <input type="checkbox" id="range1" name="range1" value="1" checked="checked" />
@@ -9,21 +11,5 @@
   <div id="partshow"><%= get_part(@part.to_i) %></div>
   <div id="partslider"></div>
   <%= hidden_field_tag(:part,@part) %>
-<% end %>
-<%= form_tag("/movies/select", :method => :post) do %>
-  <div id="order-select" class="ui-buttonset">
-    <input type="radio" id="radio1" name="select_order" value="a"
-           <% if params[:order] == "a" %> checked="checked" <% end %>
-           onchange="this.form.submit();" />
-    <label for="radio1">昇順</label>
-    <input type="radio" id="radio2" name="select_order" value="d"
-           <% if params[:order] == "d" %> checked="checked" <% end %>
-           onchange="this.form.submit();" />
-    <label for="radio2">降順</label>
-  </div>
-<% end %>
-<%= form_tag("/movies/select", :method => :post) do %>
-  <!--<div id="datepicker"></div>-->
-  <input type="text" name="datepicker" id="datepicker" value="<%= @date %>"></input>
 <% end %>
 

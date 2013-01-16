@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 class Movie < ActiveRecord::Base
   attr_accessible :camera, :date, :path
+  acts_as_taggable_on :tags
+  
   $camera_size = 16
   paginates_per $camera_size
+  scope :by_join_date, order("created_at DESC")
   scope :order_by_date, lambda {|date,order|
     if(order == 'a')
       where("date like ?","#{date}%").order("date")

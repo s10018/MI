@@ -1,0 +1,9 @@
+<div id="image-full-<%= movie.date + '-' + movie.camera %>" style="display:none;">
+  <%= image_tag(movie.path, { 
+                  :class => "camera-image-full", 
+                  :border => '1', 
+                  :alt => '', 
+                }) %>
+  <p>CAMERA:<%= movie.camera %></p>
+  <p>DATE:<%= movie.date %></p>
+</div>

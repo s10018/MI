@@ -1,0 +1,54 @@
+<ul class="inline">
+  <li>
+    <%= form_tag("/movies/select", :method => :post) do %>
+      <input type="text" name="datepicker" id="datepicker" 
+             value="<%= params[:tag] ? "" : @date %>"></input>
+    <% end %>
+  </li>
+  <li>
+    <%= @time %> <%= hidden_field_tag(:max_page,@list.num_pages) %>
+  </li>
+  <li>
+    <div class="ui-buttonset">
+      <%= form_tag("/movies/select", :method => :post) do %>
+        <button class="tips" title="Prev Month" id="pm" name="control" value="pm">
+          <span class="ui-icon ui-icon-seek-prev"></span>
+        </button>
+        <button class="tips" title="Prev Week" id="pw" name="control" value="pw">
+          <span class="ui-icon ui-icon-triangle-1-w"></i>
+        </button>
+        <button class="tips" title="Next Week" id="nw" name="control" value="nw">
+          <span class="ui-icon ui-icon-triangle-1-e"></i>
+        </button>
+        <button class="tips" title="Next Month" id="nm" name="control" value="nm">
+          <span class="ui-icon ui-icon-seek-next"></i>
+        </button>
+      <% end %>
+    </div>
+  </li>
+<li>
+  <a id="open_select" class="ui-button">
+    詳細選択
+  </a>
+</li>
+<li>
+<%= form_tag("/movies/select", :method => :post, :class => "forum-search", :id => "tag-search") do %>
+  <input type="text" class="input-medium search-query my-input" name="tag" />
+  <button id="tag-search-btn" class="btn ui-button">タグ検索</button>
+<% end %>
+</li>
+<li>
+<%= form_tag("/movies/select", :method => :post) do %>
+  <div id="order-select" class="ui-buttonset">
+    <input type="radio" id="radio1" name="select_order" value="a"
+           <% if params[:order] == "a" %> checked="checked" <% end %>
+           onchange="this.form.submit();" />
+    <label for="radio1">昇順</label>
+    <input type="radio" id="radio2" name="select_order" value="d"
+           <% if params[:order] == "d" %> checked="checked" <% end %>
+           onchange="this.form.submit();" />
+    <label for="radio2">降順</label>
+  </div>
+<% end %>
+</li>
+</ul>
