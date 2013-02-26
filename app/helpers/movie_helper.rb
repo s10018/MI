@@ -2,15 +2,17 @@
 module MovieHelper
   include ActsAsTaggableOn::TagsHelper
   
-  def get_info(filename,type="all")
-    re = /(\d\d\d\d-\d\d-\d\d-\d\d-\d\d)-(\d\d)/
-    list = filename.scan(re)
+  def get_info(movie,type="all")
+    re = /(\d\d\d\d-\d\d-\d\d)-(\d\d-\d\d)-(\d\d)/
+    list = movie.path.scan(re)
     if(type == "all")
-      return {'date' => list[0][0], 'camera' => list[0][1].to_i }
+      return {'date' => list[0][0], 'time' => list[0][1], 'camera' => list[0][2].to_i }
     elsif(type == 'date')
       return list[0][0]
+    elsif(type == 'time')
+      return list[0][1]
     elsif(type == 'camera')
-      return list[0][1].to_i
+      return list[0][2].to_i
     end
   end
 

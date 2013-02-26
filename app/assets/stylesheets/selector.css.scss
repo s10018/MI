@@ -1,0 +1,114 @@
+@import "color";
+@import "function";
+
+ul {
+  list-style-type: none;
+  margin-left:10px;
+  margin-top:10px;
+}
+
+#controller {
+  position:absolute;
+  top:1%;
+  left:23%;
+  z-index:4;
+}
+
+/* tag search form css */
+#tag-search {
+  position:absolute;
+  z-index:5;
+  top:1%;
+  left:50%;
+  width:40%;
+}
+
+/* pagination css */
+#pagination-wrapper {
+  width:80%;
+  position:absolute;
+  top:90%;
+  left:15%;
+  z-index:5;
+  #pagination {
+    display:inline-block;
+    width:80%;
+    margin:0 20px 0 20px;
+  }
+  a.prev {
+    display:inline-block;
+    width:5%;
+  }
+  a.next {
+    display:inline-block;
+    width:5%;
+  }
+}
+
+#datepicker {
+  width:42%;
+  border:0px;
+  box-shadow:rgba(0, 0, 0, 0.0745098) 0 0px 0px inset;
+  background:#ffffff;
+}
+
+#input-tag {
+  text-align:right;
+}
+
+#select_box {
+  text-align:center
+}
+.arrow_box1 {
+  color:white;
+	position: absolute;
+  background-color:rgba(0,0,0,0.8);
+	border: 0px solid $sub_color;
+  z-index:50;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 10px;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 10px;
+  @include radius(4px);
+}
+.arrow_box1:after, .arrow_box1:before {
+	bottom: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+.arrow_box1:after {
+	border-bottom-color: rgba(0, 0, 0, 0.8);
+	border-width: 16px;
+	left: 50%;
+	margin-left: -16px;
+}
+
+#mytips {
+  width:10%;
+  position:absolute;
+}
+.arrow_box2 {
+  color:white;
+	position: absolute;
+  background-color:rgba(0,0,0,0.8);
+	border: 0px solid $sub_color;
+  z-index:50;
+  @include radius(4px);
+}
+.arrow_box2:after, .arrow_box2:before {
+	top: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+.arrow_box2:after {
+	border-top-color: rgba(0, 0, 0, 0.8);
+	border-width: 16px;
+	left: 50%;
+	margin-left: -16px;
+}

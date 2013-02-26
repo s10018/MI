@@ -1,21 +1,57 @@
-<div id="wrapper">
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>MI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= csrf_meta_tags %>
+    <style type="text/css">
+      body {
+        background: white;
+      }
+    </style>
+  </head>
+  <body>
 
-  <div id="test"></div>
-
-  <div id="pages" class="tab-container">
-    <ul id="menu">
-      <li id="tab-1" class="tab"><%= link_to "詳細", '#detail' %></li>
-      <li id="tab-2" class="tab"><%= link_to "説明", '#outline' %></li>
-    </ul>
-    <div id="detail" class="ui-tab">
-      <%= render(:partial => "detail" ) %>
+    <div id="image-full-<%= @movie.id %>" class="image-full content">
+      <div class="row">
+        <div class="span1"></div>
+        <div class="span8">
+          <%= image_tag(@movie.path, { 
+                          :class => "camera-image-full img-polaroid", 
+                          :border => '1', 
+                          :alt => '', 
+                        }) %>
+        </div>
+        <div class="span3" id="image-info">
+          <p>
+            <i class="icon-facetime-video"></i>
+            <%= link_to @movie.camera, 
+                movies_camera_path(:camera => @movie.camera),
+                { :class => "camera", :alt => '', :target => '_top' } %>
+          </p> 
+          <p><i class="icon-calendar"></i>
+            <%= link_to get_info(@movie,'date').gsub('-','/'), 
+                movies_date_path(:date => get_info(@movie,'date')),
+                { :class => "date", :alt => '', :target => '_top' } %></p>
+          <p><i class="icon-time"></i> <%= get_info(@movie,'time').gsub('-',':') %></p>
+          <p><i class="icon-tags"></i> </p><p id="tag_info<%= @movie.id %>">
+            <% @movie.tag_list.each do |tag| %>
+              <%= link_to tag,
+                  movies_search_path(:tag => tag),
+                  { :class => "tag", :alt => '', :target => '_top' } %>
+            <% end %>
+          </p>
+          <div class="information alert alert-info">「」を追加しました</div>
+          <%= form_tag("/movies/add_tag", :remote => true, :'data-type' => :json, 
+                       :class => "tag_form right form-inline") do %>
+            <input class="my-input tag_input" name="addtag" type="text" />
+            <button class="ui-button btn" id="tag_btn" name="id" value="<%= @movie.id %>"><i class="icon-plus"></i>
+              <i class="icon-tag"></i></button>
+          <% end %>
+        </div>
+      </div>
     </div>
-    <div id="outline" class="ui-tab">
-      <%= render(:partial => "map" ) %>
-    </div>
-  </div>
-
-</div>
-
-
-
+</body>

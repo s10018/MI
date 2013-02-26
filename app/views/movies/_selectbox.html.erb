@@ -1,0 +1,12 @@
+<h5>選択 項目</h5>
+<%= form_tag("/movies/date", :method => :get, :class => "form-inline", :id => "date_select") do %>
+  Date:
+  <input type="text" 
+         name="date" 
+         id="datepicker" 
+         class="tips input-small" 
+         title="input date"
+         value="<%= @date %>"></input>
+  <%= hidden_field_tag(:showed_date, @showed) %>
+  <%= submit_tag 'change', :class => "ui-button" %>
+<% end %>

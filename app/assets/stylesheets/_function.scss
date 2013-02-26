@@ -1,0 +1,11 @@
+/*
+ this file is included mixin functions
+*/
+@mixin radius($wid) {
+  border: {
+    bottom-left-radius: $wid;
+    bottom-right-radius: $wid;
+    top-left-radius: $wid;
+    top-right-radius: $wid;
+  }
+}

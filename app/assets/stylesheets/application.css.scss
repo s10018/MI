@@ -1,0 +1,110 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require fancybox
+ *= require_self
+*/
+
+@import "color"; /* color list */
+@import "function";
+
+* {
+  box-shadow:none;
+}
+html {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+}
+body {
+  overflow: hidden;
+  background: $sub_color url(C5.png) repeat;
+  font-size: 13px;
+  line-height: 18px;
+  height: 100%;
+  width: 100%;
+}
+a {
+  color:#666;
+  :hover {
+    color:#555;
+  }
+}
+#loader {
+  @include radius(4px);
+  background:white;
+  width: 100px;
+  height:100px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	z-index: 100;
+  margin-top: -64px;
+  margin-left: -64px;
+  border: {
+    style: solid;
+    width: 1px;
+    color: $background;
+  }
+  img {
+    margin: 18px 18px;
+  }
+}
+#fade {
+	width: 100%;
+	height: 100%;
+	display: none;
+	background-color: $base_color;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 50;
+  background: $sub_color url(C5.png) repeat;
+}
+/* footer */
+#header {
+  height: 6%;
+  background: $sub_color url(C5.png) repeat;
+  overflow: hidden;
+  img {
+    width:55%;
+    padding:5px;
+  }
+}
+/* footer */
+#footer {
+  height: 4%;
+  background: $sub_color url(C5.png) repeat;
+  overflow: hidden;
+}
+/* tab menu */
+#menu {
+  margin-bottom:0px;
+  padding:10px 10px 0px 10px;
+  li {
+    float:right;
+  }
+  li > a {
+    background-color: $sub_color;
+    opacity:0.6;
+  }
+  .active > a, .active > a:hover {
+    background-color:white;
+    opacity:1.0;
+  }
+}
+/* content */
+#content {
+  background:white; /* url(MILAiSLayout.jpg); */
+  height:90%;
+  overflow: hidden;
+}
+.box {
+  width: 220px;
+  margin: 10px;
+  float: left;
+}
+

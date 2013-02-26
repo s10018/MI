@@ -1,0 +1,23 @@
+<div id="content">
+  <div id="controller">
+    <a id="move-swich" class="ui-button tips-e">
+      <i></i>
+    </a>
+    <%= hidden_field_tag(:showed, @showed) %> 
+    <a id="show_select" class="ui-button tips-w" title="show select box">
+      <i class="icon-list-alt"></i>
+    </a>
+    <div class="arrow_box1" id="select_box">
+      <%= render(:partial => "selectbox" ) %>
+    </div>
+  </div>
+  <%= form_tag("/movies/search", :method => :get, :class => "form-search", :id => "tag-search") do %>
+    <input type="text" class="input-medium search-query my-input" name="tag" />
+    <button id="tag-search-btn" class="btn ui-button">タグ検索</button>
+  <% end %>
+  <div id="date"><%= @time %></div>
+  <%= hidden_field_tag(:now_time, @time) %>
+  <%= hidden_field_tag(:mode, @mode) %>
+  <%= render(:partial => "movielist" ) %>  
+  <%= render(:partial => "pagination" ) %>
+</div>

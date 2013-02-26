@@ -1,4 +1,6 @@
 
+
+<% if false %>
 <p>表示する画像を絞り込みます</p>
 <div id="range-check" class="ui-buttonset">
   範囲指定:
@@ -11,5 +13,6 @@
   <div id="partshow"><%= get_part(@part.to_i) %></div>
   <div id="partslider"></div>
   <%= hidden_field_tag(:part,@part) %>
+<% end %>
 <% end %>
 

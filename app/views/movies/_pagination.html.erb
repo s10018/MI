@@ -1,0 +1,18 @@
+
+<div id="pagination-wrapper">
+  <a class="ui-button prev tips" id="minute-p" 
+     title="<% if @mode == "date" %>Prev minute<% else %>Prev Page<% end %>">
+    <span class="ui-icon ui-icon-triangle-1-w"></span>
+  </a>
+  <div id="pagination" class="sp-slider"></div>
+  <a class="ui-button next tips" id="minute-n" 
+     title="<% if @mode == "date" %>Next minute<% else %>Next Page<% end %>">
+    <span class="ui-icon ui-icon-triangle-1-e"></span>
+  </a>
+  <%= hidden_field_tag(:max_page, @list.num_pages) %>
+  <%= form_tag("/movies/page", :method => :get) do %>
+    <%= hidden_field_tag(:page, @page) %> 
+    <%= hidden_field_tag(:mode, @mode) %>
+    <%= hidden_field_tag(:showed_page, @showed) %>
+  <% end %>
+</div>
