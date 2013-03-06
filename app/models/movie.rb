@@ -6,32 +6,34 @@ class Movie < ActiveRecord::Base
   $camera_size = 16
   paginates_per $camera_size
 
+  part_time = [ ['08-30','08-50'], ['08-50','10-30'], ['10-30','12-00'],
+                ['12-00','13-00'], ['13-00','14-40'], ['14-40','16-20'],
+                ['16-20','17-50'], ['17-50','20-00'] ]
+  
   scope :order_by_date, lambda {|date, order|
-    if(order == 'a')
-      where("date like ?","#{date}%").order("date")
-    else
-      where("date like ?","#{date}%").order("date desc")
-    end
+    ord = order == 'a' ? 'date' : 'date desc'
+    where("date like ?","#{date}%").order(ord)
   }
 
   scope :camera_date, lambda {|camera, date, order|
-    if(order == 'a')
-      where("camera like ?","#{camera}%").where("date like ?","#{date}%").order("date")
-    else
-      where("camera like ?","#{camera}%").where("date like ?","#{date}%").order("date desc")
-    end    
+    ord = order == 'a' ? 'date' : 'date desc'
+    where("camera like ?","#{camera}%").where("date like ?","#{date}%").order(ord)
   }
 
   scope :date_range, lambda {|from, to|
     where("date between ? and ?", from, to)
   }
+  
   scope :part, lambda {|date, part, order|
-    part_time = [ ['08-30','08-50'], ['08-50','10-30'], ['10-30','12-00'],
-                  ['12-00','13-00'], ['13-00','14-40'], ['14-40','16-20'],
-                  ['16-20','17-50'], ['17-50','20-00'] ]
     ord = order == 'a' ? 'date' : 'date desc'
-    where("date between ? and ?", "#{date}-#{part_time[part][0]}", "#{date}-#{part_time[part][1]}").order(ord)
+    list = []
+    part.each do |p|
+      list.append("date between '#{date}-#{part_time[p.to_i][0]}' and '#{date}-#{part_time[p.to_i][1]}'")
+    end
+    ord = order == 'a' ? 'date' : 'date desc'
+    where(list.join(" or ")).order("date").order("camera").order(ord)
   }
+  
   scope :control, lambda {|c, date, part, order|
     dd = date.split(/-/)
     t = Time.mktime(dd[0],dd[1],dd[2])
@@ -39,7 +41,7 @@ class Movie < ActiveRecord::Base
       "nm" => 4.week.ago(t), "nw" => 1.week.ago(t),
       "pm" => 4.week.since(t), "pw" => 1.week.since(t)
     }
-    part(control[c].strftime("%Y-%m-%d"),part,order)
+    part(control[c].strftime("%Y-%m-%d"), part, order)
   }
   
   def self.get_list(target, key, order, alist = get_now_directory_list)
@@ -57,7 +59,7 @@ class Movie < ActiveRecord::Base
     end
   end
   
-  def self.get_info(filename,type="all")
+  def self.get_info(filename, type="all")
     re = /(\d\d\d\d-\d\d-\d\d-\d\d-\d\d)-(\d\d)/
     list = filename.scan(re)
     if(list == [])

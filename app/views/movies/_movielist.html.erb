@@ -4,14 +4,8 @@
     <p>nothing...</p>
   <% else %>
   <% @list.each do |movie| %>
-    <div class="image-frame" id="image-frame<%= movie.id %>">
-      <%= image_tag("loading.gif", { 
-                      :class => 'img-load',
-                      :border => '1', 
-                      :alt => '', 
-                    }) %>
       <%= link_to image_tag(movie.path, 
-                            { :class => "camera-image", 
+                            { :class => "image-frame", 
                               :border => '1', 
                               :alt => '', 
                               :width => $width * $scale, 
@@ -19,13 +13,6 @@
                             ),
                             movie_path(movie),
           { :class => "camera-image-f", :alt => '', :caption => get_title(movie) } %>
-    </div>
   <% end %>
   <% end %>
 </div>
-
-<% if true %>
-  <% @list.each do |movie| %>
-    <%= render :partial=>"show", :locals => { :movie => movie } %>
-  <% end %>
-<% end %>

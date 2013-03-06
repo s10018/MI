@@ -1,15 +1,39 @@
 
 <div id="pagination-wrapper">
+  <!-- prev button -->
   <a class="ui-button prev tips" id="minute-p" 
-     title="<% if @mode == "date" %>Prev minute<% else %>Prev Page<% end %>">
+     title="
+            <% if @list.size != 0 && @page != 1 %>
+              <% if @mode == "date" || @mode == "part" %>
+                <%= cal_time(@list[0].date,-1) %>
+              <% else %>
+                Prev Page
+              <% end %>
+            <% end %>
+            ">
     <span class="ui-icon ui-icon-triangle-1-w"></span>
   </a>
+
+  <!-- slider part -->
   <div id="pagination" class="sp-slider"></div>
+
+  <!-- next button -->
   <a class="ui-button next tips" id="minute-n" 
-     title="<% if @mode == "date" %>Next minute<% else %>Next Page<% end %>">
+     title="
+            <% if @list.size != 0  && @page != @list.num_pages %>
+              <% if @mode == "date" || @mode == "part" %>
+                <%= cal_time(@list[0].date,1) %>
+              <% else %>
+                Next Page
+              <% end %>
+            <% end %>
+            ">
     <span class="ui-icon ui-icon-triangle-1-e"></span>
   </a>
+
+  <!-- Max of the pagination -->
   <%= hidden_field_tag(:max_page, @list.num_pages) %>
+
   <%= form_tag("/movies/page", :method => :get) do %>
     <%= hidden_field_tag(:page, @page) %> 
     <%= hidden_field_tag(:mode, @mode) %>

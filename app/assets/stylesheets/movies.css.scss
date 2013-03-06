@@ -15,14 +15,15 @@
 }
 
 .item {
-    width: 220px;
-    height: 300px;
-    margin: 5px;
-    float: left;
-    border: 1px solid #ccc;
-    background: #eee;
-    box-shadow: 0 2px 1px #eee;
+  width: 220px;
+  height: 300px;
+  margin: 5px;
+  float: left;
+  border: 1px solid #ccc;
+  background: #eee;
+  box-shadow: 0 2px 1px #eee;
 }
+
 #movie-list {
   position:relative;
   margin-left:10%;
@@ -33,45 +34,24 @@
     z-index:1;
   }
   p { 
+    color:white;
     position:absolute;
-    z-index: 3;
-    top:50%;
-    left:20%;
+    z-index: 13;
+    margin-left:20%;
+    margin-top:20%;
+    padding:1%;
+    background-color:rgba(0,0,0,0.6);
   }
   .image-frame {
     @include radius(4px);
-	  border:1px solid #ddd;
-	  background:#EEEEEE;
-    position:absolute;
     z-index:2;
-    .camera-image {
-	    margin:0 auto;
-      display:none;
-      z-index:7;
-	    position: absolute;
-	    top: 4px;
-	    left: 7px;
-      width:90%;
-    }
-    .camera-image:hover {
-      opacity:0.6;
-      filter: alpha(opacity=0.6);
-    }
-    .img-load {
-      @include radius(4px);
-      z-index:3;
-	    position: absolute;
-      width:40%;
-    }
-    span {
-	    padding:0px; margin:0px;
-      float:right;
-      display:block;
-    }
-    a {
-      display:block;
-	    padding:10px 20px; margin:0 auto;
-    }
+    position:absolute;
+	  border:10px solid #DDD;
+    display:none;
+  }
+  .image-frame:hover {
+    opacity:0.6;
+    filter:alpha(opacity=0.6);
   }
 }
 
@@ -108,13 +88,40 @@
     margin-top:10%;
   }
 }
-/* date css */
-#date {
+
+/* info css */
+#info {
   position:absolute;
-  z-index:5;
+  z-index:2;
+  width:10%;
+  height:10%;
   top:8%;
-  left:15%;
+  left:-12%;
+  padding-left:5%;
+  padding-right:1%;
+  padding-top:1%;
+  background-color:rgba(0,0,0,0.7);
+  @include radius(4px);
+  color:white;
+  -moz-box-shadow: 3px 3px 3px #111;
+  -webkit-box-shadow: 3px 3px 3px #111;
 }
+/* time css */
+#task {
+  position:absolute;
+  z-index:2;
+  width:10%;
+  top:28%;
+  left:-4%;
+  padding-left:5%;
+  padding-top:1%;
+  background-color:rgba(0,0,0,0.7);
+  @include radius(4px);
+  color:white;
+  -moz-box-shadow: 3px 3px 3px #111;
+  -webkit-box-shadow: 3px 3px 3px #111;
+}
+
 /*
 .all_map {
   margin: 0 auto;

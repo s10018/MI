@@ -1,12 +1,34 @@
-<h5>選択 項目</h5>
-<%= form_tag("/movies/date", :method => :get, :class => "form-inline", :id => "date_select") do %>
-  Date:
-  <input type="text" 
-         name="date" 
-         id="datepicker" 
-         class="tips input-small" 
-         title="input date"
-         value="<%= @date %>"></input>
-  <%= hidden_field_tag(:showed_date, @showed) %>
-  <%= submit_tag 'change', :class => "ui-button" %>
-<% end %>
+
+<div class="arrow_box1" id="select_box">
+  <h5>選択 項目</h5>
+
+  <dl>
+    <%= form_tag("/movies/date", :method => :get, :id => "date_select") do %>
+      <dt>日付選択</dt>
+      <dd>
+        <input type="text" 
+               name="date" 
+               id="datepicker" 
+               class="tips input-small" 
+               title="input date"
+               value="<%= @date %>"></input>
+      </dd>
+      <%= hidden_field_tag(:showed_date, @showed) %>
+    <% end %>
+    <%= form_tag("/movies/part", :method => :get, :id => "part_select") do %>
+      <dt>時限選択</dt>
+      <dd>
+        <div id="part_select">
+          <% ['朝','1','2','昼','3','4', '5', '6'].each_with_index do |x,i| %>
+            <input type="checkbox" class="part" name="part[]" value="<%= i %>" id="part<%= i %>" />
+            <label for="part<%= i %>"><%= x %></label>
+          <% end %>
+        </div>
+        <%= hidden_field_tag(:part_date) %>
+      </dd>
+    <% end %>
+    <button id="select_submit" class="ui-button">
+      change
+    </button>
+  </dl>
+</div>

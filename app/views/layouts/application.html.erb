@@ -8,11 +8,12 @@
   </head>
   <body>
 
-    <div id="fade">
-      <div id="loader">
-        <%= image_tag("loading.gif",{:alt => 'Loading...', :id => 'loading'}) %>
+    <% if true %>
+      <div id="fade">
+        <div id="loader">
+          <%= image_tag("loading.gif",{:alt => 'Loading...', :id => 'loading'}) %>
+        </div>
       </div>
-    </div>
 
     <div id="header">
       <div class="container-fluid">
@@ -26,15 +27,17 @@
         </div>
       </div>
     </div>
+
     <!-- main content -->
     <%= content_for?(:main) ? yield(:main) : yield %>
-    
+
     <div id="footer">
       <div class="container-fluid">
         <div class="row-fluid">
         </div>
       </div>
     </div>
+    <% end %>
 
   </body>
 </html>

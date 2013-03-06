@@ -48,11 +48,14 @@ MI::Application.routes.draw do
 
   get 'movies/allupdate'
   get 'movies/page'
+  get 'movies/part'
   get 'movies/search'
   get 'movies/camera'
+  get 'movies/select'  
+  get 'movies/date'
+
   post 'movies/select'
   post 'movies/add_tag'
-  get 'movies/date'
 
   resources :movies do
   end

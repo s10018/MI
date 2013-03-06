@@ -1,0 +1,16 @@
+
+<% if @tags %>
+  <i class="icon-tags"></i> <%= @tags %>
+<% elsif @camera %>
+  <i class="icon-facetime-video"></i> <%= @camera %>
+<% else %>
+  <div id="date">
+    <i class="icon-calendar"></i> <%= @date %>
+  </div>
+  <div id="time">
+    <i class="icon-time"></i> <%= @time %>
+  </div>
+  <div id="part">
+    <%= get_part(@part) %>
+  </div>
+<% end %>

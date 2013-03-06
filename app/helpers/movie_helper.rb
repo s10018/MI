@@ -22,9 +22,23 @@ module MovieHelper
   
   def get_part(part)
     h = ['0時限目','1時限目','2時限目','昼休み','3時限目','4時限目','5時限目','6時限目']
-    return h[part];
+    if(part.class == Fixnum)
+      return h[part];
+    elsif(part.class == Array)
+      return part.collect{|x| h[x.to_i]}.join(" ")
+    end
   end
 
+  def cal_time(date,add)
+    dd = date.split(/-/)
+    t = Time.mktime(dd[0],dd[1],dd[2],dd[3],dd[4])
+    if add == 1
+      return 1.minute.since(t).strftime("%H:%M")
+    elsif add == -1
+      return 1.minute.ago(t).strftime("%H:%M")
+    end
+  end
+  
 end
 
 

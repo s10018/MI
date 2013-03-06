@@ -34,23 +34,29 @@
           </p> 
           <p><i class="icon-calendar"></i>
             <%= link_to get_info(@movie,'date').gsub('-','/'), 
-                movies_date_path(:date => get_info(@movie,'date')),
+                movies_date_path(:date => get_info(@movie,'date'), :showed => session[:showed]),
                 { :class => "date", :alt => '', :target => '_top' } %></p>
           <p><i class="icon-time"></i> <%= get_info(@movie,'time').gsub('-',':') %></p>
-          <p><i class="icon-tags"></i> </p><p id="tag_info<%= @movie.id %>">
+          <p><i class="icon-tags"></i> </p>
+          <div id="tag_info<%= @movie.id %>" class="tagf">
             <% @movie.tag_list.each do |tag| %>
               <%= link_to tag,
                   movies_search_path(:tag => tag),
-                  { :class => "tag", :alt => '', :target => '_top' } %>
+                  { :class => "", :alt => '', :target => '_top' } %>
             <% end %>
-          </p>
+          </div>
           <div class="information alert alert-info">「」を追加しました</div>
-          <%= form_tag("/movies/add_tag", :remote => true, :'data-type' => :json, 
-                       :class => "tag_form right form-inline") do %>
-            <input class="my-input tag_input" name="addtag" type="text" />
-            <button class="ui-button btn" id="tag_btn" name="id" value="<%= @movie.id %>"><i class="icon-plus"></i>
-              <i class="icon-tag"></i></button>
-          <% end %>
+          <ul id="tag_input_form" class="inline">
+            <li>
+            <%= form_tag("/movies/add_tag", :remote => true, :'data-type' => :json, 
+                         :class => "tag_form form-inline") do %>
+              <input class="my-input tag_input" name="addtag" type="text" />
+              <button class="ui-button btn" id="tag_btn" name="id" value="<%= @movie.id %>">
+                <i class="icon-plus"></i>
+                <i class="icon-tag"></i></button>
+            <% end %>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

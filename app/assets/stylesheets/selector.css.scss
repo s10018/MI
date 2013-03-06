@@ -17,10 +17,9 @@ ul {
 /* tag search form css */
 #tag-search {
   position:absolute;
-  z-index:5;
-  top:1%;
-  left:50%;
-  width:40%;
+  z-index:3;
+  top:0%;
+  left:45%;
 }
 
 /* pagination css */
@@ -35,13 +34,8 @@ ul {
     width:80%;
     margin:0 20px 0 20px;
   }
-  a.prev {
+  a.prev, a.next {
     display:inline-block;
-    width:5%;
-  }
-  a.next {
-    display:inline-block;
-    width:5%;
   }
 }
 
@@ -56,15 +50,38 @@ ul {
   text-align:right;
 }
 
-#select_box {
-  text-align:center
+#tag_input_form {
+  margin:1%;
 }
+
+#part_select {
+  width:100%;
+  input[type="checkbox"] {
+    width:10%;
+  }
+}
+
+#select_box {
+  /*position:absolute;*/
+  padding:1%;
+  z-index:10;
+}
+
+#all_tag {
+  /*position:absolute;*/
+  padding:1%;
+  z-index:10;
+  a:link, a:visited, a:hover, a:active { 
+    color: white; 
+  } 
+}
+
 .arrow_box1 {
   color:white;
 	position: absolute;
   background-color:rgba(0,0,0,0.8);
-	border: 0px solid $sub_color;
-  z-index:50;
+	border: 0px solid #cccccc;
+  z-index:51;
   -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 10px;
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 5px 10px;
   @include radius(4px);
@@ -75,40 +92,14 @@ ul {
 	content: " ";
 	height: 0;
 	width: 0;
+  z-index:50;
 	position: absolute;
 	pointer-events: none;
 }
 .arrow_box1:after {
 	border-bottom-color: rgba(0, 0, 0, 0.8);
-	border-width: 16px;
+	border-width: 20px;
 	left: 50%;
-	margin-left: -16px;
-}
-
-#mytips {
-  width:10%;
-  position:absolute;
-}
-.arrow_box2 {
-  color:white;
-	position: absolute;
-  background-color:rgba(0,0,0,0.8);
-	border: 0px solid $sub_color;
   z-index:50;
-  @include radius(4px);
-}
-.arrow_box2:after, .arrow_box2:before {
-	top: 100%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-}
-.arrow_box2:after {
-	border-top-color: rgba(0, 0, 0, 0.8);
-	border-width: 16px;
-	left: 50%;
-	margin-left: -16px;
+	margin-left: -20px;
 }

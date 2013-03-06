@@ -1,15 +1,7 @@
 
 @import "color";
 
-@font-face {
-  font-family: 'arrowicons';
-  src: url("../font/arrowicons.eot");
-  src: url("../font/arrowicons.eot?#iefix") format('embedded-opentype'), 
-  url("../font/arrowicons.woff") format('woff'), url("../font/arrowicons.ttf") format('truetype'), 
-  url("../font/arrowicons.svg#arrowicons") format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
+
 
 .sp-slider-wrapper {
 	box-sizing: content-box;

@@ -1,0 +1,18 @@
+
+<ul id="tag-search" class="inline">
+  <li>
+  <%= form_tag("/movies/search", :method => :get) do %>
+    <input type="text" class="input-medium search-query my-input" name="tag" />
+    <button id="tag-search-btn" class="btn ui-button">
+      <i class="icon-search"></i>
+      <i class="icon-tag"></i>
+    </button>
+  <% end %>
+  </li>
+  <li>
+  <button id="tag-list-show" class="btn ui-button">
+    <i class="icon-list"></i>
+    <i class="icon-tag"></i>
+  </button>
+  </li>
+</ul>

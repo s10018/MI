@@ -24,11 +24,7 @@ group :assets do
   gem 'therubyracer', :platform => :ruby
   gem 'less-rails'
   gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
-
 end
-
-# gem 'jquery-rails'
-gem 'kaminari'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
@@ -46,3 +42,4 @@ gem 'kaminari'
 # gem 'debugger'
 
 gem 'acts-as-taggable-on', '~> 2.3.1'
+gem 'kaminari'
