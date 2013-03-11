@@ -19,8 +19,10 @@ class MoviesController < ApplicationController
     @page = 1
     @mode = "date"
     @showed = "list"
-    @list = Movie.order_by_date(@date, @order).page(@page).order("camera")    
-    @time = get_info(@list[0],"time").gsub('-',':')
+    @list = Movie.order_by_date(@date, @order).page(@page).order("camera")
+    if @list.size > 0
+      @time = get_info(@list[0],"time").gsub('-',':')
+    end
     session[:date] = @date
     session[:showed] = @showed
     session[:order] = @order
