@@ -10,7 +10,7 @@
     <%= render(:partial => "info" ) %>
   </div>
 
-  <% if true %>
+  <% if Rails.env == 'development' %>
     <div id="task">
       <%= render(:partial => "task" ) %>
     </div>
