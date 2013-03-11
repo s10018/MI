@@ -1,16 +1,78 @@
 
 <% if @tags %>
-  <i class="icon-tags"></i> <%= @tags %>
+  <ul>
+    <li>
+      <i class="icon-search"></i> 条件
+      <ul>
+        <li>
+          <div id="tag">
+            <i class="icon-tags"></i> <%= @tags.gsub(' ',', ') %>
+          </div>
+        </li>
+        <li>
+          <% if params[:search_mode] %>
+            (<%= params[:search_mode] %>)
+          <% else %>
+            (選択)
+          <% end %>
+        </li>
+      </ul>
+    </li>
+  </ul>
 <% elsif @camera %>
-  <i class="icon-facetime-video"></i> <%= @camera %>
+  <ul>
+    <li>
+      <i class="icon-search"></i> 条件
+      <ul>
+        <li>
+          <div id="camera">
+            <i class="icon-facetime-video"></i> <%= @camera %>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
 <% else %>
-  <div id="date">
-    <i class="icon-calendar"></i> <%= @date %>
-  </div>
-  <div id="time">
-    <i class="icon-time"></i> <%= @time %>
-  </div>
-  <div id="part">
-    <%= get_part(@part) %>
-  </div>
+  <ul>
+    <li>
+      <i class="icon-search"></i> 条件
+      <ul>
+        <li>
+          <div id="date">
+            <i class="icon-calendar"></i> <%= @date %>
+          </div>
+        </li>
+        <li>
+          <div id="part">
+            <%= get_part(@part) %>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <i class="icon-list"></i> 表示情報
+      <ul>
+        <li>
+          <div id="date">
+            <i class="icon-calendar"></i> 
+            <% if @list.size > 0 %>
+              <%= get_info(@list[0],'date') %>
+            <% else %>
+              None
+            <% end %>
+          </div>
+        </li>
+        <li>
+          <div id="time">
+            <i class="icon-time"></i> 
+            <% if @list.size > 0 %>
+              <%= @time %>
+            <% else %>
+              None
+            <% end %>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
 <% end %>

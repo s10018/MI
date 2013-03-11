@@ -1,5 +1,10 @@
 $(document).ready(function() {
 
+  //var date = new Date('2012-01-20 13:10') - new Date('2012-01-20 12:10');
+  //alert(date); // (ミリ秒が返ってくる)
+  // 1分 -> 60000
+  // 1時間 -> 
+
   $("#pagination").slider({
     orientation: 'horizontal',
     range: false,

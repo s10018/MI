@@ -3,7 +3,7 @@
   <% if @list.size == 0 %>
     <p>nothing...</p>
   <% else %>
-  <% @list.each do |movie| %>
+    <% @list.each do |movie| %>
       <%= link_to image_tag(movie.path, 
                             { :class => "image-frame", 
                               :border => '1', 
@@ -11,8 +11,8 @@
                               :width => $width * $scale, 
                               :height => $height * $scale }
                             ),
-                            movie_path(movie),
+          movie_path(movie),
           { :class => "camera-image-f", :alt => '', :caption => get_title(movie) } %>
-  <% end %>
+    <% end %>
   <% end %>
 </div>

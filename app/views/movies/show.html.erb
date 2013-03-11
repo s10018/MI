@@ -16,8 +16,11 @@
   <body>
 
     <div id="image-full-<%= @movie.id %>" class="image-full content">
+
       <div class="row">
+
         <div class="span1"></div>
+
         <div class="span8">
           <%= image_tag(@movie.path, { 
                           :class => "camera-image-full img-polaroid", 
@@ -25,6 +28,7 @@
                           :alt => '', 
                         }) %>
         </div>
+
         <div class="span3" id="image-info">
           <p>
             <i class="icon-facetime-video"></i>
@@ -45,7 +49,9 @@
                   { :class => "", :alt => '', :target => '_top' } %>
             <% end %>
           </div>
-          <div class="information alert alert-info">「」を追加しました</div>
+
+          <div id="information" class="alert"></div>
+
           <ul id="tag_input_form" class="inline">
             <li>
             <%= form_tag("/movies/add_tag", :remote => true, :'data-type' => :json, 
@@ -57,6 +63,7 @@
             <% end %>
             </li>
           </ul>
+
         </div>
       </div>
     </div>

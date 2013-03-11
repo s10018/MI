@@ -19,10 +19,13 @@
       <div class="container-fluid">
         <div class="row-fluid">
           <div class="span3">
-            <%= link_to "DB更新", :controller => "movies", :action => "allupdate" %>
-            <%= link_to image_tag("MILAiS_logo_header.png", 
-                                  { :border => '0', :alt => 'MILAiSLogo' , :id => "milais_logo"}), 
-                "http://www.milais.kyutech.ac.jp/" %>
+            <%= link_to "DB更新", :controller => "movies", :action =>
+            "allupdate" %>
+            <% if true %>
+              <%= link_to image_tag("MILAiS_logo_header.png", 
+                                    { :border => '0', :alt => 'MILAiSLogo' , :id => "milais_logo"}), 
+                  "http://www.milais.kyutech.ac.jp/" %>
+            <% end %>
           </div>
         </div>
       </div>
@@ -34,6 +37,10 @@
     <div id="footer">
       <div class="container-fluid">
         <div class="row-fluid">
+          <div class="span4 offset4">
+            © <%= Time.now.year %> Kyutech MILAiS Project All Rights
+            Reserved.
+          </div>
         </div>
       </div>
     </div>

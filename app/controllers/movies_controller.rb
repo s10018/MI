@@ -77,13 +77,23 @@ class MoviesController < ApplicationController
   def search
     @alltag = Movie.tag_counts_on(:tags).order('count DESC')
     @tags = params[:tag]
-    session[:tags] = @tags
-    @showed = 'list'
+    @showed = "list"
     @mode = "tag"
     @page = 1
+    session[:tags] = @tags
     session[:mode] = @mode
     session[:showed] = @showed
-    @list = Movie.tagged_with(@tags, :any => true).page(@page).order('date')
+    # any : 含むものすべて(OR)
+    # match_all : すべて含むもの (AND)
+    if(params[:search_mode] && params[:search_mode] == "AND")
+      @list = Movie.tagged_with(@tags.split(" "), :match_all => true)
+        .page(@page)
+        .order('date')
+    else
+      @list = Movie.tagged_with(@tags.split(" "), :any => true)
+        .page(@page)
+        .order('date')
+    end
     render :template => "movies/index"
   end
   
@@ -94,9 +104,9 @@ class MoviesController < ApplicationController
     @showed = "list"
     @mode = "camera"
     @order = 'a'    
-    session[:camera] = @camera
-    session[:mode] = @mode
     @list = Movie.camera_date(@camera, @date, @order).page(1)
+    session[:mode] = @mode
+    session[:camera] = @camera
     render :template => "movies/index"    
   end
   
@@ -140,15 +150,23 @@ class MoviesController < ApplicationController
   
   def add_tag
     add_tag = params[:addtag]
-    @movie = Movie.find(params[:id])
-    @movie.tag_list << add_tag
-    if(@movie.save)
-      render :json => {
-        :sucess => "「#{add_tag}」を追加しました",
-        :elem => "#tag_info#{@movie.id}",
-        :tags => @movie.tag_list
-      }
+    status = "error"
+    sucess = ""
+    if(add_tag != "")
+      @movie = Movie.find(params[:id])
+      @movie.tag_list << add_tag
+      if(@movie.save)
+        status = "success"
+        success = "「#{add_tag}」を追加しました"
+      end
     end
+    @movie = Movie.find(params[:id])
+    render :json => {
+      :status => status,
+      :success => success,
+      :elem => "#tag_info#{@movie.id}",
+      :tags => @movie.tag_list
+    }
   end
 
   def allupdate

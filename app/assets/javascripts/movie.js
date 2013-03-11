@@ -1,6 +1,5 @@
 
 $(document).ready(function() {
-  var date = new Date();
 
   $("#datepicker").datepicker({
     dateFormat: 'yy-mm-dd',
@@ -24,6 +23,11 @@ $(document).ready(function() {
   $(".ui-buttonset").buttonset();
   $(".ui-button").button();
   $("#part_select").buttonset();
+  $("#search_switch").buttonset();
+
+  $('#search_switch > input').change(function(){
+    $('#search_mode').val($(this).val());
+  });
 
   $('#controller').children('.ui-button').each(function(i){
     $(this).css({

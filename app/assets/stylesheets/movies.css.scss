@@ -72,7 +72,7 @@
   }
 }
 /* movie detail css */
-.information {
+#information {
   position:absolute;
   z-index:80000;
   top:90%;
@@ -94,17 +94,22 @@
   position:absolute;
   z-index:2;
   width:10%;
-  height:10%;
   top:8%;
   left:-12%;
   padding-left:5%;
   padding-right:1%;
-  padding-top:1%;
   background-color:rgba(0,0,0,0.7);
   @include radius(4px);
   color:white;
   -moz-box-shadow: 3px 3px 3px #111;
   -webkit-box-shadow: 3px 3px 3px #111;
+  ul {
+    list-style-type: none;
+  }
+  li ul {
+    margin:0 0 0 1em;
+    padding: 0;
+  }
 }
 /* time css */
 #task {

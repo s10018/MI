@@ -7,7 +7,16 @@
       <i class="icon-search"></i>
       <i class="icon-tag"></i>
     </button>
+    <%= hidden_field_tag(:search_mode, "OR") %>
   <% end %>
+  </li>
+  <li>
+    <div id="search_switch">
+      <input type="radio" name="search_mode" value="OR" id="search_mode1" checked="true" />
+      <label for="search_mode1">OR</label>
+      <input type="radio" name="search_mode" value="AND" id="search_mode2" />
+      <label for="search_mode2">AND</label>
+    </div>
   </li>
   <li>
   <button id="tag-list-show" class="btn ui-button">
