@@ -19,7 +19,7 @@ class MoviesController < ApplicationController
     @page = 1
     @mode = "date"
     @showed = "list"
-    @list = Movie.order_by_date(@date, @order).page(@page).order("camera")
+    @list = Movie.range_date(@date, @order).page(@page).order("camera")
     if @list.size > 0
       @time = get_info(@list[0],"time").gsub('-',':')
     end
@@ -33,61 +33,23 @@ class MoviesController < ApplicationController
     @movie = Movie.find(params[:id])
     render :layout => false
   end
-  
-  def page
-    @page = params[:page]
-    @alltag = Movie.tag_counts_on(:tags).order('count DESC')
-    if @page && session[:mode] == "date"
-      @date = session[:date]
-      @showed = params[:showed_page]
-      @order = 'a'
-      @mode = "date"
-      session[:showed] = @showed
-      @list = Movie.order_by_date(@date, @order).page(@page).order("camera")
-      if @list != []
-        @time = get_info(@list[0],"time").gsub('-',':')
-      end
-    elsif @page && session[:mode] == "tag"
-      @tags = session[:tags]
-      @showed = 'list'
-      @mode = "tag"
-      @list = Movie.tagged_with(@tags,:any => true).page(@page)
-      @time = ""
-    elsif @page && session[:mode] == "camera"
-      @camera = session[:camera]
-      @showed = "list"
-      @mode = "camera"
-      @order = 'a'    
-      session[:camera] = @camera
-      @list = Movie.camera_date(@camera, @date, @order).page(@page)
-      @time = ""
-    elsif @page && session[:mode] == "part"
-      @part = session[:part]
-      @date = session[:date]
-      @showed = params[:showed_page]
-      @mode = "part"
-      @order = 'a'
-      session[:showed] = @showed
-      @list = Movie.part(@date, @part, @order).page(@page)
-      if @list != []
-        @time = get_info(@list[0],"time").gsub('-',':')
-      end
-    end
-    render :template => "movies/index"    
-  end
 
-  def search
+  def tag
     @alltag = Movie.tag_counts_on(:tags).order('count DESC')
     @tags = params[:tag]
     @showed = "list"
     @mode = "tag"
-    @page = 1
+    if params[:page]
+      @page = params[:page]
+    else
+      @page = 1
+    end
     session[:tags] = @tags
     session[:mode] = @mode
     session[:showed] = @showed
     # any : 含むものすべて(OR)
     # match_all : すべて含むもの (AND)
-    if(params[:search_mode] && params[:search_mode] == "AND")
+    if(params[:search_mode] && @tags.split(" ") > 0 && params[:search_mode] == "AND")
       @list = Movie.tagged_with(@tags.split(" "), :match_all => true)
         .page(@page)
         .order('date')
@@ -102,11 +64,15 @@ class MoviesController < ApplicationController
   def camera
     @alltag = Movie.tag_counts_on(:tags).order('count DESC')
     @camera = params[:camera]
-    @page = 1
+    if params[:page]
+      @page = params[:page]
+    else
+      @page = 1
+    end
     @showed = "list"
     @mode = "camera"
     @order = 'a'    
-    @list = Movie.camera_date(@camera, @date, @order).page(1)
+    @list = Movie.camera_date(@camera, @date, @order).page(@page)
     session[:mode] = @mode
     session[:camera] = @camera
     render :template => "movies/index"    
@@ -115,15 +81,20 @@ class MoviesController < ApplicationController
   def date
     @alltag = Movie.tag_counts_on(:tags).order('count DESC')
     @date = params[:date]
-    @page = 1
-    @showed = params[:showed_date]
+    if params[:page]
+      @page = params[:page]
+      @showed = params[:showed]
+    else
+      @page = 1
+      @showed = params[:showed_date]
+    end
     @mode = "date"
     @order = 'a'
     session[:date] = @date
     session[:showed] = @showed
     session[:order] = @order
     session[:mode] = @mode
-    @list = Movie.order_by_date(@date, @order).page(1).order("camera")
+    @list = Movie.range_date(@date, @order).page(@page).order("camera")
     if @list != []
       @time = get_info(@list[0],"time").gsub('-',':')
     end
@@ -134,7 +105,11 @@ class MoviesController < ApplicationController
     @alltag = Movie.tag_counts_on(:tags).order('count DESC')
     @part = params[:part]
     @date = params[:part_date]
-    @page = 1
+    if params[:page]
+      @page = params[:page]
+    else
+      @page = 1
+    end
     @showed = params[:showed]
     @mode = "part"
     @order = 'a'
@@ -143,34 +118,13 @@ class MoviesController < ApplicationController
     session[:showed] = @showed
     session[:order] = @order
     session[:mode] = @mode
-    @list = Movie.part(@date, @part, @order).page(1)
+    @list = Movie.part(@date, @part, @order).page(@page)
     if @list != []
       @time = get_info(@list[0],"time").gsub('-',':')
     end
     render :template => "movies/index"    
   end
   
-  def add_tag
-    add_tag = params[:addtag]
-    status = "error"
-    sucess = ""
-    if(add_tag != "")
-      @movie = Movie.find(params[:id])
-      @movie.tag_list << add_tag
-      if(@movie.save)
-        status = "success"
-        success = "「#{add_tag}」を追加しました"
-      end
-    end
-    @movie = Movie.find(params[:id])
-    render :json => {
-      :status => status,
-      :success => success,
-      :elem => "#tag_info#{@movie.id}",
-      :tags => @movie.tag_list
-    }
-  end
-
   def allupdate
     Movie.all_update
     redirect_to :action => "index"

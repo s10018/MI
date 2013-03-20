@@ -34,9 +34,22 @@
   <!-- Max of the pagination -->
   <%= hidden_field_tag(:max_page, @list.num_pages) %>
 
-  <%= form_tag("/movies/page", :method => :get) do %>
+  <%= form_tag("/movies/#{@mode}", :method => :get) do %>
+
     <%= hidden_field_tag(:page, @page) %> 
     <%= hidden_field_tag(:mode, @mode) %>
-    <%= hidden_field_tag(:showed_page, @showed) %>
+    <%= hidden_field_tag(:showed, @showed) %>
+
+    <% if @mode == "tag" %>
+      <%= hidden_field_tag(:tag, @tags) %>
+    <% end %>
+    <% if @mode == "date" %>
+      <%= hidden_field_tag(:date, @date) %>
+    <% end %>
+    <% if @mode == "part" %>
+      <%= hidden_field_tag(:part_date, @date) %>
+      <%= hidden_field_tag(:part, @part) %>
+    <% end %>
+
   <% end %>
 </div>

@@ -1,0 +1,7 @@
+<%= form_tag("/tags/add", :remote => true, :'data-type' => :json, 
+             :class => "tag_form form-inline") do %>
+  <input class="my-input tag_input" name="addtag" type="text" />
+  <button class="ui-button btn" id="tag_btn" name="id" value="<%= @movie.id %>">
+    <i class="icon-plus"></i>
+    <i class="icon-tag"></i></button>
+<% end %>

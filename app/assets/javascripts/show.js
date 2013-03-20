@@ -30,7 +30,7 @@ $(document).ready(function() {
     $(data.elem).text("").delay(1000).html(function() {
       atag = "";
       data.tags.forEach(function(tag){
-        atag += '<a href="/movies/search?tag='
+        atag += '<a href="/movies/tag?tag='
             + tag
             +'" alt="" class="tag" target="_top">'+tag+'</a> ';
       });

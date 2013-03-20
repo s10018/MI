@@ -22,6 +22,7 @@
   <% if (@mode == "date" || @mode == "part") && @list.size > 0 %>
     <%= hidden_field_tag(:full_now_time, @list[0].date) %>
   <% end %>
+
   <!-- movielist -->
   <%= render(:partial => "movielist" ) %>  
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130110090856) do
+ActiveRecord::Schema.define(:version => 20130312024029) do
 
   create_table "infos", :force => true do |t|
     t.string   "attr"
@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(:version => 20130110090856) do
 
   create_table "movies", :force => true do |t|
     t.string   "path"
-    t.string   "camera"
-    t.string   "date"
+    t.integer  "camera"
+    t.datetime "date"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

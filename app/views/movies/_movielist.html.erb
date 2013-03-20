@@ -11,8 +11,8 @@
                               :width => $width * $scale, 
                               :height => $height * $scale }
                             ),
-          movie_path(movie),
-          { :class => "camera-image-f", :alt => '', :caption => get_title(movie) } %>
+          "/movies/show/#{movie.id}",
+          { :class => "camera-image-f", :alt => '' } %>
     <% end %>
   <% end %>
 </div>

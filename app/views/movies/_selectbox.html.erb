@@ -3,7 +3,7 @@
   <h5>選択 項目</h5>
 
   <dl>
-    <%= form_tag("/movies/date", :method => :get, :id => "date_select") do %>
+    <%= form_tag("/movies/date", :method => "get", :id => "date_select") do %>
       <dt>日付選択</dt>
       <dd>
         <input type="text" 
@@ -15,7 +15,7 @@
       </dd>
       <%= hidden_field_tag(:showed_date, @showed) %>
     <% end %>
-    <%= form_tag("/movies/part", :method => :get, :id => "part_select") do %>
+    <%= form_tag("/movies/part", :method => "get", :id => "part_select") do %>
       <dt>時限選択</dt>
       <dd>
         <div id="part_select">

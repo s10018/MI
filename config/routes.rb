@@ -46,25 +46,14 @@ MI::Application.routes.draw do
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
 
-  get 'movies/allupdate'
-  get 'movies/page'
-  get 'movies/part'
-  get 'movies/search'
-  get 'movies/camera'
-  get 'movies/select'  
-  get 'movies/date'
+  # This is a legacy wild controller route that's not recommended for RESTful applications.
+  # Note: This route will make all actions in every controller accessible via GET requests.
+  match ':controller(/:action(/:id))(.:format)'
 
-  post 'movies/select'
   post 'movies/add_tag'
-
-  resources :movies do
-  end
 
   root :controller => 'movies', :action => 'index'
   # See how all your routes lay out with "rake routes"
 
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
 end
 
