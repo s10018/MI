@@ -39,7 +39,7 @@
           </p> 
           <p><i class="icon-calendar"></i>
             <%= link_to get_info(@movie,'date').gsub('-','/'),
-                "/movies/date?date=#{@movie.date}", 
+                "/movies/date?date=#{show_date(@movie.date)}", 
                 { :class => "date", :alt => '', :target => '_top' } %></p>
           <p><i class="icon-time"></i> <%= get_info(@movie,'time').gsub('-',':') %></p>
           <p><i class="icon-tags"></i> </p>

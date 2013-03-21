@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 class Movie < ActiveRecord::Base
+  
   attr_accessible :camera, :date, :path
   acts_as_taggable_on :tags
 
@@ -71,20 +72,6 @@ class Movie < ActiveRecord::Base
     end
   end
   
-  def self.get_info(filename, type="all")
-    re = /(\d\d\d\d-\d\d-\d\d-\d\d-\d\d)-(\d\d)/
-    list = filename.scan(re)
-    if(list == [])
-      return false
-    elsif(type == "all")
-      return {'date' => list[0][0], 'camera' => list[0][1] }
-    elsif(type == 'date')
-      return list[0][0]
-    elsif(type == 'camera')
-      return list[0][1]
-    end
-  end
-  
   def self.compare(a,b)
     alist = a.split("-")
     blist = b.split("-")
@@ -127,9 +114,7 @@ class Movie < ActiveRecord::Base
       end
     end
     diff.each do |m|
-      p m
-      info = get_info(m)
-      p info
+      info = Movie.get_info(m)
       if(info)
         movie = new(:path => m,
                     :camera => info['camera'],
@@ -138,5 +123,23 @@ class Movie < ActiveRecord::Base
       end
     end
   end
-  
+
+  def self.get_info(movie, type="all")
+    re = /(\d\d\d\d-\d\d-\d\d)-(\d\d-\d\d)-(\d\d)/
+    if movie.class == String
+      list = movie.scan(re)
+    elsif movie.class == Movie
+      list = movie.path.scan(re)
+    end
+    if(type == "all")
+      return {'date' => list[0][0], 'time' => list[0][1], 'camera' => list[0][2].to_i }
+    elsif(type == 'date')
+      return list[0][0]
+    elsif(type == 'time')
+      return list[0][1]
+    elsif(type == 'camera')
+      return list[0][2].to_i
+    end
+  end
+
 end

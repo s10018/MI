@@ -43,15 +43,14 @@ MI::Application.routes.draw do
   #     resources :products
   #   end
 
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
+  ['camera','date','part','tag'].each do |e|
+    match "movies/#{e}/:#{e}(/:page)(.:format\)", :controller => 'movies', :action => e, :as => "movie_#{e}"
+  end
+  
   match ':controller(/:action(/:id))(.:format)'
 
-  post 'movies/add_tag'
-
+  # You can have the root of your site routed with "root"
+  # just remember to delete public/index.html.
   root :controller => 'movies', :action => 'index'
   # See how all your routes lay out with "rake routes"
 

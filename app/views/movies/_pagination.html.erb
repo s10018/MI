@@ -46,6 +46,9 @@
     <% if @mode == "date" %>
       <%= hidden_field_tag(:date, @date) %>
     <% end %>
+    <% if @mode == "camera" %>
+      <%= hidden_field_tag(:camera, @camera) %>
+    <% end %>
     <% if @mode == "part" %>
       <%= hidden_field_tag(:part_date, @date) %>
       <%= hidden_field_tag(:part, @part) %>

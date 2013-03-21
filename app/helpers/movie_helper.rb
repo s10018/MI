@@ -2,22 +2,12 @@
 module MovieHelper
   include ActsAsTaggableOn::TagsHelper
 
+  def show_date(t)
+    return t.strftime("%Y-%m-%d")
+  end
+  
   def get_info(movie, type="all")
-    re = /(\d\d\d\d-\d\d-\d\d)-(\d\d-\d\d)-(\d\d)/
-    if movie.class == String
-      list = movie.scan(re)
-    elsif movie.class == Movie
-      list = movie.path.scan(re)
-    end
-    if(type == "all")
-      return {'date' => list[0][0], 'time' => list[0][1], 'camera' => list[0][2].to_i }
-    elsif(type == 'date')
-      return list[0][0]
-    elsif(type == 'time')
-      return list[0][1]
-    elsif(type == 'camera')
-      return list[0][2].to_i
-    end
+    return Movie.get_info(movie,type)
   end
     
   def get_part(part)
