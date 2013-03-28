@@ -72,23 +72,6 @@ class Movie < ActiveRecord::Base
     end
   end
   
-  def self.compare(a,b)
-    alist = a.split("-")
-    blist = b.split("-")
-    short = []; long = [];
-    if(alist.size <= blist.size)
-      short = alist; long = blist
-    else
-      short = blist; long = alist
-    end
-    short.each_index do |i|
-      if(short[i] != long[i])
-        return false
-      end
-    end
-    return true
-  end
-  
   def self.get_now_directory_list
     list = []
     Dir::glob("public/images/**/*.jpg").each do |f|
@@ -124,6 +107,10 @@ class Movie < ActiveRecord::Base
     end
   end
 
+  def get_date
+    return self.date
+  end
+  
   def self.get_info(movie, type="all")
     re = /(\d\d\d\d-\d\d-\d\d)-(\d\d-\d\d)-(\d\d)/
     if movie.class == String

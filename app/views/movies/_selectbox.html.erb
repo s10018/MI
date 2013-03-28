@@ -12,15 +12,15 @@
                class="tips input-small" 
                title="input date"
                value="<%= @date %>"></input>
-        </div>
       </dd>
       <%= hidden_field_tag(:showed_date, @showed) %>
     <% end %>
+
     <%= form_tag("/movies/part", :method => "get", :id => "part_select") do %>
       <dt>時限選択</dt>
       <dd>
         <div id="part_select">
-          <% ['朝','1','2','昼','3','4', '5', '6'].each_with_index do |x,i| %>
+          <% ['朝','1','2','昼','3','4', '5', '6'].each_with_index do |x, i| %>
             <input type="checkbox" class="part" name="part[]" value="<%= i %>" id="part<%= i %>" />
             <label for="part<%= i %>"><%= x %></label>
           <% end %>
@@ -28,8 +28,10 @@
         <%= hidden_field_tag(:part_date) %>
       </dd>
     <% end %>
+
     <button id="select_submit" class="ui-button">
       change
     </button>
+
   </dl>
 </div>
