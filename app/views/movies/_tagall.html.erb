@@ -1,7 +1,8 @@
 <% if @alltag %>
   <div id="all_tag" class="arrow_box1">
     <% tag_cloud(@alltag, %w(css1 css2 css3 css4)) do |tag, css_class| %>
-      <%= link_to tag.name, "/movies/search?tag=#{tag.name}", :class => css_class %>
+      <%= link_to tag.name, "/movies/tag?tag=#{tag.name}", :class => css_class %>
     <% end %>
   </div>
 <% end %>
+

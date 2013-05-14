@@ -50,7 +50,7 @@ class MoviesController < ApplicationController
     session[:showed] = @showed
     # any : 含むものすべて(OR)
     # match_all : すべて含むもの (AND)
-    if(params[:search_mode] && @tags.split(" ") > 0 && params[:search_mode] == "AND")
+    if(params[:search_mode] && @tags.split(" ").size > 0 && params[:search_mode] == "AND")
       @list = Movie.tagged_with(@tags.split(" "), :match_all => true)
         .page(@page)
         .order('date')

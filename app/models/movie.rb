@@ -12,10 +12,28 @@ class Movie < ActiveRecord::Base
                 ['16-20','17-50'], ['17-50','20-00'] ]
 
   scope :date_range, lambda {|from, to|
+    # fromからtoの間の時刻のMovieを検索
     a_table = Movie.arel_table
-    between = a_table[:date].gteq(from).and(a_table[:date].lt(to))
+    between = get_between(from,to,:date)
     where(between)
   }
+  
+  scope :date_ranges, lambda {|pairs|
+    cond = nil
+    pairs.each do |ps|
+      if cond.nil?
+        cond = get_between(ps[0],ps[1],:date)
+      else
+        cond = cond.or(get_between(ps[0],ps[1],:date))
+      end
+    end
+    where(cond)
+  }
+    
+  def self.get_between(from,to,field)
+    a_table = Movie.arel_table
+    return a_table[field].gteq(from).and(a_table[field].lteq(to))
+  end
 
   scope :range_date, lambda {|date, order|
     ord = order == 'a' ? 'date' : 'date desc'
@@ -41,11 +59,14 @@ class Movie < ActiveRecord::Base
   scope :part, lambda {|date, part, order|
     ord = order == 'a' ? 'date' : 'date desc'
     list = []
-    part.each do |p|
-      list.append("date between '#{date}-#{part_time[p.to_i][0]}' and '#{date}-#{part_time[p.to_i][1]}'")
+    if part.class() == String
+      part = [part]
     end
-    ord = order == 'a' ? 'date' : 'date desc'
-    where(list.join(" or ")).order("date").order("camera").order(ord)
+    part.each do |p|
+      list.append([Time.mktime(*"#{date}-#{part_time[p.to_i][0]}".split('-')),
+                   Time.mktime(*"#{date}-#{part_time[p.to_i][1]}".split('-'))])
+    end
+    date_ranges(list)
   }
   
   scope :control, lambda {|c, date, part, order|
