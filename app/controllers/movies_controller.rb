@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 class MoviesController < ApplicationController
   include MovieHelper
+  caches_page :index
   
   $scale = 0.20
   $width = 640

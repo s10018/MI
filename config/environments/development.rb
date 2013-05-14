@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 MI::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -34,4 +35,11 @@ MI::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  config.after_initialize do
+    Bullet.enable = true # Bulletプラグインを有効
+    Bullet.bullet_logger = true
+    Bullet.rails_logger = true # Railsログに出力
+  end
+
 end

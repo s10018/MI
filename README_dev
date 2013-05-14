@@ -1,0 +1,54 @@
+
+Directories,files Info
+
+(私が)知っておいたほうがいいと思ったものだけを簡単に書きます．
+
+Gemfile
+  必要なplugin(余計なのも入ってそうですが)が記述されています．
+
+config/
+  設定ファイルがあります
+config/routes.rb
+  ルーティング(アドレスによってどのコントローラが起動されるのか)の設定を記述してます．
+  MI/ディレクトリ内で
+$ rake routes
+  とすればどのようにルーティングされるのか分かります．
+
+app/assets/
+  javascript，CSS，画像(カメラ画像以外)が入っています．基本的にjavascriptやCSS，画像はここに入れてください
+app/controllers/
+  アクセスしたときの挙動(関数)を書いてます．どういうときにどのアクションがおきるかはルーティング参照
+app/models/
+  モデル(≒データベースの抽象クラス的なもの)について書いてます．
+app/models/movies.rb
+  カメラ画像のモデルです．できたらコントローラから情報とる(Movies.find〜とか)ときは
+  コントローラに書くんじゃなくてscopeで書いたほうがいいです．
+app/models/info.rb
+  未実装なので無視してもいいです
+
+app/views/ 
+  コントローラが返すHTMLなど表示部分についてのファイルが置いてあります．
+app/views/layout/application.html.erb
+  共通のHTMLのレイアウトが書いてます．application.html.erb内の
+<%= content_for?(:main) ? yield(:main) : yield %>
+  に差分が表示されると思ってください．
+app/views/movies/index.html.erb
+  MovieController内で
+render :template => "movies/index"
+  したときに渡されるファイルです．
+app/views/kaminari/
+  多分このディレクトリのファイルは使ってないですがkaminariはページングで使ってます．
+app/helpers/
+viewなどで使える関数のファイルです．viewでよくわらない関数があったらこっちに書いてるかもしれません
+
+public/images/
+  カメラ画像が日付の階層で入っています
+
+db/migrate/
+  データベースのマイコンフィグレーションファイルが入っています
+
+dist/
+  (※自分で作ったディレクトリ)適当なファイル入れてます，なくても問題ないです
+
+log/
+  ログファイル

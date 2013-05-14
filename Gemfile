@@ -44,3 +44,7 @@ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootst
 
 gem 'acts-as-taggable-on', '~> 2.3.1'
 gem 'kaminari'
+
+group :development do
+  gem "bullet"
+end
