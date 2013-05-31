@@ -1,0 +1,5 @@
+
+- カメラ画像について
+MI/public/imagesは，/data/MI/imagesにシンボリックリンクを貼ってください
+おそらく初めてgit pullでとってきた場合は，MI/public/imagesというディレクトリはないはずです．
+はらないと画像が表示されません...

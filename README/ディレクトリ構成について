@@ -5,7 +5,6 @@ Directories,files Info
 
 Gemfile
   必要なplugin(余計なのも入ってそうですが)が記述されています．
-
 config/
   設定ファイルがあります
 config/routes.rb

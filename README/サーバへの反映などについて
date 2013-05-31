@@ -1,0 +1,39 @@
+
+mcii サーバへの反映メモです．
+
+- mciiサーバへの反映手順
+1. githubからpullする(もちろんgithubにはpush済み)
+2. pluginを追加したなら'budle install'
+3. DBの変更をしたなら(migrateつかってるなら)'rake migration'
+4. 'bundle exec rake assets:precompile RAILS_ENV=production'を実行してassetsをプレコンパイルする
+5. apacheを再起動する
+で恐らく変更が反映されます．
+
+- Apacheなんかについて
+
+Apache/2.2.24 (FreeBSD)を使っています
+
+設定は /usr/local/etc/apache22/httpd.confに書いています．
+下の方に
+
+NameVirtualHost *:80
+
+<VirtualHost *:80>
+    ServerName 172.16.4.12
+    RackEnv production
+    DocumentRoot /home/s_10018/MI/public/
+    <Directory "/home/s_10018/MI/public">
+        Options -MultiViews +FollowSymLinks
+        AllowOverride All
+        Order allow,deny
+        Allow from all
+    </Directory>
+</VirtualHost>
+
+のように(適当に)書いて設定しています．
+現在 /home/s_10018/MI/ にディレクトリを置いています．
+Apacheに設定書くときはpublic/を忘れないようにしてください．
+アプリケーションを更新したときは，
+sudo /usr/local/etc/rc.d/apache22 restart
+のようにしてapacheを再起動してください(この辺も適当)
+
