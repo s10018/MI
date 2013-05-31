@@ -1,9 +1,12 @@
 $(document).ready(function() {
 
-  //var date = new Date('2012-01-20 13:10') - new Date('2012-01-20 12:10');
-  //alert(date); // (ミリ秒が返ってくる)
-  // 1分 -> 60000
-  // 1時間 -> 
+  function DateCal(date, diff) {
+    // diff分(ふん)だけずれた日付を返す
+    var mil = Date.parse('1990/09/01 '+date);
+    var da = new Date(mil);
+    da.setMinutes(da.getMinutes() + diff);
+      return da.getHours()+':'+da.getMinutes();
+  }
 
   $("#pagination").slider({
     orientation: 'horizontal',
@@ -12,9 +15,16 @@ $(document).ready(function() {
     min: 1,
     value: parseInt($('#page').val()),
     slide: function(event, ui) {
-      $('.sp-slider .ui-slider-handle')
-          .tipsy("show")
-          .attr('title','move!!');
+      if($('#mode').val() == "date" || $("#mode").val() == "part") {
+        var diff = DateCal($("#now_time").val(), ui.value-parseInt($('#page').val()));
+        $('.sp-slider .ui-slider-handle')
+            .tipsy("show")
+            .attr('title',diff);//$("#now_time").val());
+      } else {
+        $('.sp-slider .ui-slider-handle')
+            .tipsy("show")
+            .attr('title',"Go to page "+ui.value);
+      }
     },
     change: function( event, ui ) {
       $("#page").attr("value", ui.value);
